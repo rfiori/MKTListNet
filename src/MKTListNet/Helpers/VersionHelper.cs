@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Reflection;
 
 namespace MKTListNet.Helpers
@@ -15,7 +14,7 @@ namespace MKTListNet.Helpers
         {
             var asm = Assembly.GetExecutingAssembly();
             var product = asm.GetCustomAttributes(typeof(AssemblyProductAttribute), true).FirstOrDefault() as AssemblyProductAttribute;
-            
+
             AppName = product?.Product;
             AppVersion = asm.GetName()?.Version?.ToString();
             AssemblyName = typeof(Controller).Assembly.GetName().Name;
