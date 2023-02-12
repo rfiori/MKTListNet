@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MKTListNet.Configuration;
-using MKTListNet.Infra;
 
 var builder = WebApplication.CreateBuilder(args);
 

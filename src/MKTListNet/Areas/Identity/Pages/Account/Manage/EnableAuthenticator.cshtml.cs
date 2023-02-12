@@ -5,7 +5,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MKTListNet.Infra;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Text;

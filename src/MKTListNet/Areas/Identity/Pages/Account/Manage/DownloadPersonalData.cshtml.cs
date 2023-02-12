@@ -5,7 +5,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MKTListNet.Infra;
 using System.Text.Json;
 
 namespace MKTListNet.Areas.Identity.Pages.Account.Manage
