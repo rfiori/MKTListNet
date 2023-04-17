@@ -1,6 +1,6 @@
 ﻿using MKTListNet.Domain.Entities;
 
-namespace MKTListNet.Domain.Interface
+namespace MKTListNet.Domain.Interface.Repository
 {
     public interface IEmailListRepository : IRepository<EmailList>
     {

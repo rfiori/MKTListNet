@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MKTListNet.Domain.Interface;
+using MKTListNet.Domain.Interface.Repository;
 using MKTListNet.Infra;
 using System.Linq.Expressions;
 
@@ -8,9 +8,9 @@ namespace MKTListNet.Data.Repository
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly MKTListNetContext _DBContext;
-
         protected readonly DbSet<TEntity> _DbSet;
 
+        //----------------------------------------------------------//
 
         public Repository(MKTListNetContext dBContext)
         {
@@ -18,7 +18,7 @@ namespace MKTListNet.Data.Repository
             _DbSet = _DBContext.Set<TEntity>();
         }
 
-
+        //----------------------------------------------------------//
 
         public virtual async Task<TEntity?> GetByIdAsync(Guid id)
         {
@@ -35,6 +35,18 @@ namespace MKTListNet.Data.Repository
             var objRet = _DbSet.Add(obj).Entity;
             SaveChanges();
             return objRet;
+        }
+
+        public int AddBulk(IEnumerable<TEntity> objEnumerable)
+        {
+            int ct = 0;
+            foreach (var item in objEnumerable)
+            {
+                _DbSet.Add(item);
+                ct++;
+            }
+            SaveChanges();
+            return ct;
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()

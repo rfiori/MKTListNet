@@ -1,0 +1,52 @@
+﻿@using MKTListNet.Application.ViewModel;
+@model List<EmailViewModel>
+
+@{
+}
+
+<div class="container-fluid">
+
+    <div class="h4">
+        Emails Cadastrados
+        <hr class="my-2" />
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="border rounded p-1 text-center">
+                <a class="btn btn-primary" asp-action="AddEmails" asp-controller="Emails" asp-area="Admin">Adicionar Email</a>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <div class="row">
+        @if (Model == null || Model.Count < 1)
+        {
+            <p class="h4 p-4">Não existe emails cadastrados!</p>
+        }
+        else
+        {
+            <div class="col-5">
+                <table class="table rounded">
+                    <thead>
+                        <tr class="bg-light">
+                            <th scope="row">Emails (@Model.Count.ToString("N0"))</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <i class="fa-solid fa-circle-info fa-lg" style="color: #bfc3ca; cursor:help" title="@item.EmailId"></i>&ensp;@item.EmailAddress
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+    </div>
+</div>

@@ -31,6 +31,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.2" />
@@ -39,16 +40,17 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.3" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.5" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="wwwroot\App_Data\" />
-		<Folder Include="Areas\Admin\Data\" />
 		<Folder Include="Areas\Admin\Models\" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\MKTListNet.Application\MKTListNet.Application.csproj" />
+		<ProjectReference Include="..\MKTListNet.CrossCutting.IoC\MKTListNet.CrossCutting.IoC.csproj" />
 		<ProjectReference Include="..\MKTListNet.CrossCutting.Shared\MKTListNet.CrossCutting.Shared.csproj" />
 		<ProjectReference Include="..\MKTListNet.Data\MKTListNet.Data.csproj" />
 	</ItemGroup>

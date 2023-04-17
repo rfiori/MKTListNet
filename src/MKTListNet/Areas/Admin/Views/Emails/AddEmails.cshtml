@@ -1,0 +1,37 @@
+﻿@model int
+@{
+}
+
+<div class="container-fluid">
+    <div class="h4">
+        Adicionar Emails
+        <hr class="my-2" />
+    </div>
+
+    @if (Model > 0)
+    {
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <b>Total de emails adicionados (@Model.ToString("N0"))</b>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="border rounded p-3">
+                <p class="small">
+                    Adicione um email por linha
+                </p>
+                <form asp-action="AddEmails" asp-controller="Emails" asp-area="Admin" method="post">
+                    <textarea class="form-control" style="height:400px;" name="emails" autofocus> </textarea>
+                    <br />
+                    <input class="form-control btn btn-primary" type="submit" value="Adicionar" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

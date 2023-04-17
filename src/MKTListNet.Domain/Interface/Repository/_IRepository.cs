@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace MKTListNet.Domain.Interface
+namespace MKTListNet.Domain.Interface.Repository
 {
     public interface IRepository<TEntity> : IDisposable where TEntity : class
     {
@@ -9,6 +9,8 @@ namespace MKTListNet.Domain.Interface
         Task<TEntity?> GetByIdAsync(int id);
 
         TEntity Add(TEntity obj);
+
+        int AddBulk(IEnumerable<TEntity> objEnumerable);
 
         Task<IEnumerable<TEntity>> GetAllAsync();
 
