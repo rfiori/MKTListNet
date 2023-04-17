@@ -2,8 +2,12 @@
 Web App para gerenciar o envio de email marketing, listas de envio e campanhas de marketing digital.
 
 **Project Info**
-- AspNet Core MVC
+- AspNet Core MVC - net 7.0
 - SqLite
+- AutoMapper
+- AspNetCore.Identity
+- EntityFrameworkCore
+- DependencyInjection / IoC
 
 -------------------------
 
