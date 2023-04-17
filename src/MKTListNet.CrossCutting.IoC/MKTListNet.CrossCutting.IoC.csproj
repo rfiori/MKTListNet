@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MKTListNet.Application\MKTListNet.Application.csproj" />
+    <ProjectReference Include="..\MKTListNet.Data\MKTListNet.Data.csproj" />
+    <ProjectReference Include="..\MKTListNet.Domain\MKTListNet.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
