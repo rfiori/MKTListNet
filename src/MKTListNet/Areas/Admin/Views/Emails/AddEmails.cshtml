@@ -21,15 +21,17 @@
     }
 
     <div class="row justify-content-center">
-        <div class="col-6">
+        <div class="col-8">
             <div class="border rounded p-3">
-                <p class="small">
+                <div class="alert alert-secondary">
                     Adicione um email por linha
-                </p>
+                </div>
                 <form asp-action="AddEmails" asp-controller="Emails" asp-area="Admin" method="post">
                     <textarea class="form-control" style="height:400px;" name="emails" autofocus> </textarea>
                     <br />
+                    <div class="col-5 mx-auto">
                     <input class="form-control btn btn-primary" type="submit" value="Adicionar" />
+                    </div>
                 </form>
             </div>
         </div>
