@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace MKTListNet.Data.Migrations
+namespace MKTListNet.Infra.Migrations
 {
     [DbContext(typeof(MKTListNetContext))]
     [Migration("20230212123649_Initial")]

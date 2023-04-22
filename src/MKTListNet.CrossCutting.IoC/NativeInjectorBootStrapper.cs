@@ -1,10 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MKTListNet.Application.Interface;
 using MKTListNet.Application.Services;
-using MKTListNet.Data.Repository;
 using MKTListNet.Domain.Interface.Repository;
 using MKTListNet.Domain.Interface.Services;
 using MKTListNet.Domain.Services;
+using MKTListNet.Infra;
+using MKTListNet.Infra.Repository;
 
 namespace MKTListNet.CrossCutting.IoC
 {
@@ -15,10 +16,11 @@ namespace MKTListNet.CrossCutting.IoC
             // Domain
             services.AddScoped<IEmailService, EmailService>();
 
-            //Application
+            // Application
             services.AddScoped<IEmailAppService, EmailAppService>();
 
-            // Ifra - Data
+            // Infra - Data
+            services.AddScoped<MKTListNetContext>();
             services.AddScoped<IEmailRepository, EmailRepository>();
             services.AddScoped<IEmailListRepository, EmailListRepository>();
         }

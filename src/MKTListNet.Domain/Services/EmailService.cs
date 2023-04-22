@@ -19,33 +19,32 @@ namespace MKTListNet.Domain.Services
 
         //----------------------------------------------------------//
 
-        public Email? Add(Email email)
+        public int Add(Email email)
         {
             if (string.IsNullOrEmpty(email.EmailAddress) || !IsEmailValid(email.EmailAddress) || EmailExistente(email.EmailAddress))
-                return null;
+                return 0;
 
             email.EmailAddress = email.EmailAddress.Trim().ToLower();
             return _emailRepository.Add(email);
         }
 
-        public int AddBulk(IList<string> emailbulk)
+        public async Task<int> AddBulkAsync(IList<string> lstEmail)
         {
-            var lstEmail = new List<Email>();
-
-            if (emailbulk == null || emailbulk.Count == 0)
+            if (lstEmail == null || lstEmail.Count == 0)
                 return 0;
 
-            foreach (var item in emailbulk)
+            var lstEmailOk = new List<Email>();
+
+            foreach (var item in lstEmail)
             {
                 var email = item.Trim().ToLower();
                 if (!IsEmailValid(email) || EmailExistente(email))
                     continue;
 
-                lstEmail.Add(new Email { EmailAddress = email });
+                lstEmailOk.Add(new Email { EmailAddress = email });
             }
 
-            var tot = _emailRepository.AddBulk(lstEmail);
-            return tot;
+            return await _emailRepository.AddBulkAsync(lstEmailOk);
         }
 
         private bool EmailExistente(string email)

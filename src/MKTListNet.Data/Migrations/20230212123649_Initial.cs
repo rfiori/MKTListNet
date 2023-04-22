@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace MKTListNet.Data.Migrations
+namespace MKTListNet.Infra.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration

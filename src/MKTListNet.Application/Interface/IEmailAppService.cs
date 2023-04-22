@@ -1,5 +1,4 @@
 ﻿using MKTListNet.Application.ViewModel;
-using MKTListNet.Domain.Entities;
 using System.Linq.Expressions;
 
 namespace MKTListNet.Application.Interface
@@ -8,9 +7,9 @@ namespace MKTListNet.Application.Interface
     {
         Task<EmailViewModel?> GetByIdAsync(Guid id);
 
-        EmailViewModel Add(EmailViewModel emailVM);
+        int Add(EmailViewModel emailVM);
 
-        int AddBulk(IList<string> emailbulk);
+        Task<int> AddBulkAsync(IList<string> emailbulk);
 
         Task<IEnumerable<EmailViewModel>> GetAllAsync();
 

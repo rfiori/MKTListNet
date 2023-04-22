@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace MKTListNet.Data.Migrations
+namespace MKTListNet.Infra.Migrations
 {
     /// <inheritdoc />
     public partial class EmailEmailList : Migration
@@ -17,7 +18,8 @@ namespace MKTListNet.Data.Migrations
                 columns: table => new
                 {
                     EmailId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    EmailAddress = table.Column<string>(type: "vachar", maxLength: 200, nullable: false)
+                    Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
+                    EmailAddress = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,7 +32,7 @@ namespace MKTListNet.Data.Migrations
                 {
                     ListId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ListName = table.Column<string>(type: "vachar", maxLength: 200, nullable: false)
+                    ListName = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {

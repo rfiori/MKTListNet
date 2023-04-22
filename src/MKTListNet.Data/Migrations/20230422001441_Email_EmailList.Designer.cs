@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace MKTListNet.Data.Migrations
+namespace MKTListNet.Infra.Migrations
 {
     [DbContext(typeof(MKTListNetContext))]
-    [Migration("20230212123944_Email_EmailList")]
+    [Migration("20230422001441_Email_EmailList")]
     partial class EmailEmailList
     {
         /// <inheritdoc />
@@ -29,7 +29,11 @@ namespace MKTListNet.Data.Migrations
                     b.Property<string>("EmailAddress")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("vachar");
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.HasKey("EmailId");
 
@@ -47,7 +51,7 @@ namespace MKTListNet.Data.Migrations
                     b.Property<string>("ListName")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("vachar");
+                        .HasColumnType("varchar(200)");
 
                     b.HasKey("ListId");
 

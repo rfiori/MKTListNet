@@ -6,7 +6,7 @@ namespace MKTListNet.Configuration
     {
         public static void AddDependencyInjectionConfiguration(this IServiceCollection services)
         {
-            if (services == null) 
+            if (services == null)
                 throw new ArgumentNullException(nameof(services));
 
             NativeInjectorBootStrapper.RegisterServices(services);

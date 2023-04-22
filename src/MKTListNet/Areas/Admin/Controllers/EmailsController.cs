@@ -4,6 +4,14 @@ using MKTListNet.Application.Interface;
 
 namespace MKTListNet.Areas.Admin.Controllers
 {
+    public record RetAddEmail
+    {
+        public int EmailAdd { get; set; }
+        public int EmailReject { get; set; }
+    }
+
+    //---------------------------------------------------------------------------//
+
     [Area("Admin")]
     [Authorize()]
     public class EmailsController : Controller
@@ -31,12 +39,15 @@ namespace MKTListNet.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddEmails(string emails)
         {
-            var ret = 0;
+            var ret = new RetAddEmail();
+
             if (string.IsNullOrEmpty(emails))
                 return View(ret);
 
-            var lstE = emails.Replace("\r\n", ";").Split(';').ToList<string>();
-            ret = _emailAppService.AddBulk(lstE);
+            var lstEmail = emails.Replace("\r\n", ";").Split(';').ToList<string>();
+            ret.EmailAdd = await _emailAppService.AddBulkAsync(lstEmail);
+            ret.EmailReject = lstEmail.Count - ret.EmailAdd;
+
             return View(ret);
         }
     }

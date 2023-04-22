@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MKTListNet.Application\MKTListNet.Application.csproj" />
-    <ProjectReference Include="..\MKTListNet.Data\MKTListNet.Data.csproj" />
+    <ProjectReference Include="..\MKTListNet.Data\MKTListNet.Infra.csproj" />
     <ProjectReference Include="..\MKTListNet.Domain\MKTListNet.Domain.csproj" />
   </ItemGroup>
 

@@ -7,9 +7,9 @@ namespace MKTListNet.Domain.Interface.Services
     {
         Task<Email?> GetByIdAsync(Guid id);
 
-        Email? Add(Email email);
+        int Add(Email email);
 
-        int AddBulk(IList<string> emailbulk);
+        Task<int> AddBulkAsync(IList<string> lstEmail);
 
         Task<IEnumerable<Email>> GetAllAsync();
 

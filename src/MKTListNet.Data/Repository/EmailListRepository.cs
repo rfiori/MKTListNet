@@ -1,8 +1,7 @@
 ﻿using MKTListNet.Domain.Entities;
 using MKTListNet.Domain.Interface.Repository;
-using MKTListNet.Infra;
 
-namespace MKTListNet.Data.Repository
+namespace MKTListNet.Infra.Repository
 {
     public class EmailListRepository : Repository<EmailList>, IEmailListRepository
     {

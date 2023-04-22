@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MKTListNet.Domain.Entities;
 
-namespace MKTListNet.Data.EntityConfig
+namespace MKTListNet.Infra.EntityConfig
 {
     internal class EmailConfig : IEntityTypeConfiguration<Email>
     {
@@ -12,8 +12,12 @@ namespace MKTListNet.Data.EntityConfig
 
             builder.HasKey(x => x.EmailId);
 
+            builder.Property(x => x.Name)
+                .HasColumnType("varchar(50)")
+                .HasMaxLength(50);
+
             builder.Property(x => x.EmailAddress)
-                .HasColumnType("vachar")
+                .HasColumnType("varchar(200)")
                 .HasMaxLength(200)
                 .IsRequired();
 

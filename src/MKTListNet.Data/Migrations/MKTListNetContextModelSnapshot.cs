@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace MKTListNet.Data.Migrations
+namespace MKTListNet.Infra.Migrations
 {
     [DbContext(typeof(MKTListNetContext))]
     partial class MKTListNetContextModelSnapshot : ModelSnapshot
@@ -26,7 +26,11 @@ namespace MKTListNet.Data.Migrations
                     b.Property<string>("EmailAddress")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("vachar");
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.HasKey("EmailId");
 
@@ -44,7 +48,7 @@ namespace MKTListNet.Data.Migrations
                     b.Property<string>("ListName")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("vachar");
+                        .HasColumnType("varchar(200)");
 
                     b.HasKey("ListId");
 

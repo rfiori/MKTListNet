@@ -8,9 +8,7 @@ namespace MKTListNet.Domain.Interface.Repository
 
         Task<TEntity?> GetByIdAsync(int id);
 
-        TEntity Add(TEntity obj);
-
-        int AddBulk(IEnumerable<TEntity> objEnumerable);
+        int Add(TEntity obj);
 
         Task<IEnumerable<TEntity>> GetAllAsync();
 

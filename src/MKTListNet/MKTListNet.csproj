@@ -52,7 +52,7 @@
 		<ProjectReference Include="..\MKTListNet.Application\MKTListNet.Application.csproj" />
 		<ProjectReference Include="..\MKTListNet.CrossCutting.IoC\MKTListNet.CrossCutting.IoC.csproj" />
 		<ProjectReference Include="..\MKTListNet.CrossCutting.Shared\MKTListNet.CrossCutting.Shared.csproj" />
-		<ProjectReference Include="..\MKTListNet.Data\MKTListNet.Data.csproj" />
+		<ProjectReference Include="..\MKTListNet.Data\MKTListNet.Infra.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

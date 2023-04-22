@@ -22,21 +22,17 @@ namespace MKTListNet.Application.Services
 
         //----------------------------------------------------------//
 
-        public EmailViewModel Add(EmailViewModel emailVM)
+        public int Add(EmailViewModel emailVM)
         {
             var email = _mapper.Map<Email>(emailVM);
-            var emailRet = _emailService.Add(email);
-            if (emailRet != null)
-            {
-                _emailService.SaveChanges();
-            }
-            emailVM = _mapper.Map<EmailViewModel>(emailRet);
-            return emailVM;
+            return _emailService.Add(email);
+            //emailVM = _mapper.Map<EmailViewModel>(emailRet);
+            //return emailVM;
         }
 
-        public int AddBulk(IList<string> emailbulk)
+        public async Task<int> AddBulkAsync(IList<string> emailbulk)
         {
-            return _emailService.AddBulk(emailbulk);
+            return await _emailService.AddBulkAsync(emailbulk);
         }
 
         public IEnumerable<EmailViewModel?> Find(Expression<Func<EmailViewModel, bool>> predicate)

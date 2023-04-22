@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using MKTListNet.Data.EntityConfig;
 using MKTListNet.Domain.Entities;
+using MKTListNet.Infra.EntityConfig;
 
 namespace MKTListNet.Infra
 {
