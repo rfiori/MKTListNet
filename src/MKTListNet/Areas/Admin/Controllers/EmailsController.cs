@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MKTListNet.Application.Interface;
+using MKTListNet.Application.ViewModel;
+using MKTListNet.Domain.Interface.Repository;
 
 namespace MKTListNet.Areas.Admin.Controllers
 {
@@ -24,9 +26,17 @@ namespace MKTListNet.Areas.Admin.Controllers
         }
 
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? search, int pageSize, int page)
         {
-            var lstEmail = await _emailAppService.GetAllAsync();
+            IPagingResult<EmailViewModel>? lstEmail;
+
+            if (!string.IsNullOrEmpty(search) && search.Length > 2)
+            {
+                lstEmail = _emailAppService.GetEmails(search.ToLower(), pageSize, page);
+                return View(lstEmail);
+            }
+
+            lstEmail = await _emailAppService.GetAllPagingAsync(pageSize, page);
             return View(lstEmail);
         }
 

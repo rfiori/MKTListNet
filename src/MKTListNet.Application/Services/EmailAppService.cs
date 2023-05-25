@@ -2,7 +2,9 @@
 using MKTListNet.Application.Interface;
 using MKTListNet.Application.ViewModel;
 using MKTListNet.Domain.Entities;
+using MKTListNet.Domain.Interface.Repository;
 using MKTListNet.Domain.Interface.Services;
+using MKTListNet.Infra.Repository;
 using System.Linq.Expressions;
 
 namespace MKTListNet.Application.Services
@@ -26,8 +28,6 @@ namespace MKTListNet.Application.Services
         {
             var email = _mapper.Map<Email>(emailVM);
             return _emailService.Add(email);
-            //emailVM = _mapper.Map<EmailViewModel>(emailRet);
-            //return emailVM;
         }
 
         public async Task<int> AddBulkAsync(IList<string> emailbulk)
@@ -35,10 +35,14 @@ namespace MKTListNet.Application.Services
             return await _emailService.AddBulkAsync(emailbulk);
         }
 
-        public IEnumerable<EmailViewModel?> Find(Expression<Func<EmailViewModel, bool>> predicate)
+        public IPagingResult<EmailViewModel>? GetEmails(string containsEmail, int pageSize = 50, int page = 1)
         {
-            var pred = _mapper.Map<Expression<Func<Email, bool>>>(predicate);
-            return _mapper.Map<IEnumerable<EmailViewModel>>(_emailService.Find(pred));
+            return _mapper.Map<PagingResult<EmailViewModel>?>(_emailService.GetEmails(containsEmail, pageSize, page));
+        }
+
+        public async Task<IPagingResult<EmailViewModel>?> GetAllPagingAsync(int pageSize = 50, int page = 1)
+        {
+            return _mapper.Map<PagingResult<EmailViewModel>?>(await _emailService.GetAllPagingAsync(pageSize, page));
         }
 
         public async Task<IEnumerable<EmailViewModel>> GetAllAsync()

@@ -1,4 +1,6 @@
 ﻿using MKTListNet.Application.ViewModel;
+using MKTListNet.Domain.Entities;
+using MKTListNet.Domain.Interface.Repository;
 using System.Linq.Expressions;
 
 namespace MKTListNet.Application.Interface
@@ -11,9 +13,11 @@ namespace MKTListNet.Application.Interface
 
         Task<int> AddBulkAsync(IList<string> emailbulk);
 
+        Task<IPagingResult<EmailViewModel>?> GetAllPagingAsync(int pageSize = 50, int page = 1);
+
         Task<IEnumerable<EmailViewModel>> GetAllAsync();
 
-        IEnumerable<EmailViewModel?> Find(Expression<Func<EmailViewModel, bool>> predicate);
+        IPagingResult<EmailViewModel>? GetEmails(string ContainsEmail, int pageSize = 100, int page = 1);
 
         EmailViewModel Updeate(EmailViewModel emailVM);
 

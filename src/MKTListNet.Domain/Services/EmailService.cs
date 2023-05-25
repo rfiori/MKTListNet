@@ -2,6 +2,7 @@
 using MKTListNet.Domain.Interface.Repository;
 using MKTListNet.Domain.Interface.Services;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 
 namespace MKTListNet.Domain.Services
@@ -58,14 +59,26 @@ namespace MKTListNet.Domain.Services
             return Regex.IsMatch(email, pattern);
         }
 
+        public IPagingResult<Email>? GetEmails(string containsEmail, int pageSize = 100, int page = 1)
+        {
+            pageSize = pageSize == 0 ? 100 : pageSize;
+            page = page == 0 ? 1 : pageSize;
+            return _emailRepository.FindPaging(em => em.EmailAddress.Contains(containsEmail), pageSize, page);
+        }
 
-
-        public IEnumerable<Email?> Find(Expression<Func<Email, bool>> predicate)
+        public IEnumerable<Email>? Find(Expression<Func<Email, bool>> predicate)
         {
             return _emailRepository.Find(predicate);
         }
 
-        public async Task<IEnumerable<Email>> GetAllAsync()
+        public async Task<IPagingResult<Email>?> GetAllPagingAsync(int pageSize = 50, int page = 1)
+        {
+            pageSize = pageSize == 0 ? 50 : pageSize;
+            page = page == 0 ? 1 : page;
+            return await _emailRepository.GetAllPagingAsync(pageSize, page);
+        }
+
+        public async Task<IEnumerable<Email>?> GetAllAsync()
         {
             return await _emailRepository.GetAllAsync();
         }

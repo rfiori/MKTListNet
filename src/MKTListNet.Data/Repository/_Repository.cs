@@ -35,14 +35,47 @@ namespace MKTListNet.Infra.Repository
             return SaveChanges();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<IPagingResult<TEntity>?> GetAllPagingAsync(int? pageSize, int? page)
+        {
+            var ret = await GetAllAsync();
+            return PagingData(ret, pageSize.Value, page.Value)!;
+        }
+
+        public async Task<IEnumerable<TEntity>?> GetAllAsync()
         {
             return await _DbSet.AsNoTracking().ToListAsync();
         }
 
-        public IEnumerable<TEntity?> Find(Expression<Func<TEntity, bool>> predicate)
+        public IPagingResult<TEntity>? FindPaging(Expression<Func<TEntity, bool>> predicate, int? pageSize = 50, int? page = 1)
         {
-            return _DbSet.AsNoTracking<TEntity>().Where(predicate);
+            var ret = Find(predicate);
+            return PagingData(ret, pageSize.Value, page.Value);
+        }
+
+        public IEnumerable<TEntity>? Find(Expression<Func<TEntity, bool>> predicate)
+        {
+            return _DbSet.AsNoTracking<TEntity>().Where(predicate).ToList();
+        }
+
+        private static IPagingResult<TEntity>? PagingData(IEnumerable<TEntity>? itemsPaging, int pageSize = 30, int page = 1)
+        {
+            if (itemsPaging == null || itemsPaging?.Count() < 1)
+                return null;
+
+            int TotalItems = itemsPaging!.Count();
+            int TotalPages = (int)Math.Ceiling((double)TotalItems / pageSize);
+
+            // Garantir que a página atual não exceda o número total de páginas
+            page = Math.Max(1, Math.Min(page, TotalPages));
+
+            // Calcular o índice de início e quantidade de itens a serem carregados
+            int StartIndex = (page - 1) * pageSize;
+            int ItemsToLoad = Math.Min(pageSize, TotalItems - StartIndex);
+
+            var ret2 = itemsPaging!.Skip(StartIndex).Take(ItemsToLoad);
+
+            // Criar um objeto de paginação customizado
+            return new PagingResult<TEntity>(ret2, page, pageSize, TotalItems, TotalPages);
         }
 
         public TEntity Updeate(TEntity obj)

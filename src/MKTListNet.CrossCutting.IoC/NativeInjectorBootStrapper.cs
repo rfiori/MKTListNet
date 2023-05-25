@@ -16,13 +16,14 @@ namespace MKTListNet.CrossCutting.IoC
             // Domain
             services.AddScoped<IEmailService, EmailService>();
 
-            // Application
-            services.AddScoped<IEmailAppService, EmailAppService>();
-
             // Infra - Data
             services.AddScoped<MKTListNetContext>();
+            //services.AddScoped<IPagingResult<object>, PagingResult<object>>();
             services.AddScoped<IEmailRepository, EmailRepository>();
             services.AddScoped<IEmailListRepository, EmailListRepository>();
+
+            // Application
+            services.AddScoped<IEmailAppService, EmailAppService>();
         }
     }
 }

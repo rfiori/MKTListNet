@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MKTListNet.Domain.Entities;
 using MKTListNet.Domain.Interface.Repository;
-using System.Linq.Expressions;
 
 namespace MKTListNet.Infra.Repository
 {

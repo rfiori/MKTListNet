@@ -7,6 +7,8 @@ namespace MKTListNet.Application.ViewModel
         [Key]
         public Guid EmailId { get; set; } = new Guid();
 
+        public String? Name { get; set; }
+
         [Required]
         [MaxLength(200)]
         public string EmailAddress { get; set; } = null!;

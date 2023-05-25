@@ -1,4 +1,5 @@
 ﻿using MKTListNet.Domain.Entities;
+using MKTListNet.Domain.Interface.Repository;
 using System.Linq.Expressions;
 
 namespace MKTListNet.Domain.Interface.Services
@@ -11,9 +12,13 @@ namespace MKTListNet.Domain.Interface.Services
 
         Task<int> AddBulkAsync(IList<string> lstEmail);
 
-        Task<IEnumerable<Email>> GetAllAsync();
+        Task<IPagingResult<Email>?> GetAllPagingAsync(int pageSize = 50, int page = 1);
 
-        IEnumerable<Email?> Find(Expression<Func<Email, bool>> predicate);
+        Task<IEnumerable<Email>?> GetAllAsync();
+
+        IPagingResult<Email>? GetEmails(string containsEmail, int pageSize = 100, int page = 1);
+
+        IEnumerable<Email>? Find(Expression<Func<Email, bool>> predicate);
 
         Email Updeate(Email email);
 

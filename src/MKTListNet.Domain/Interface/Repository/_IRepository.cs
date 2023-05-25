@@ -10,9 +10,13 @@ namespace MKTListNet.Domain.Interface.Repository
 
         int Add(TEntity obj);
 
-        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<IPagingResult<TEntity>?> GetAllPagingAsync(int? pageSize, int? page);
 
-        IEnumerable<TEntity?> Find(Expression<Func<TEntity, bool>> predicate);
+        Task<IEnumerable<TEntity>?> GetAllAsync();
+
+        IPagingResult<TEntity>? FindPaging(Expression<Func<TEntity, bool>> predicate, int? pageSize = 50, int? page = 1);
+
+        IEnumerable<TEntity>? Find(Expression<Func<TEntity, bool>> predicate);
 
         TEntity Updeate(TEntity obj);
 

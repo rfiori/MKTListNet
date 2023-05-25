@@ -9,7 +9,7 @@ namespace MKTListNet.Configuration
             if (services == null)
                 throw new ArgumentNullException(nameof(services));
 
-            services.AddAutoMapper(typeof(DomainToViewModelMappingProfile), typeof(DomainToViewModelMappingProfile));
+            services.AddAutoMapper(typeof(ViewModelToDamoinMappingProfile), typeof(DomainToViewModelMappingProfile));
         }
     }
 }
