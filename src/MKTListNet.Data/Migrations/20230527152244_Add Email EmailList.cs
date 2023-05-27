@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MKTListNet.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class EmailEmailList : Migration
+    public partial class AddEmailEmailList : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,7 +32,8 @@ namespace MKTListNet.Infra.Migrations
                 {
                     ListId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ListName = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false)
+                    Name = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false),
+                    Type = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,12 +42,12 @@ namespace MKTListNet.Infra.Migrations
 
             migrationBuilder.InsertData(
                 table: "EmailList",
-                columns: new[] { "ListId", "ListName" },
+                columns: new[] { "ListId", "Name", "Type" },
                 values: new object[,]
                 {
-                    { 1, "Geral list" },
-                    { 2, "OptOut" },
-                    { 3, "Exclusion/Bounce" }
+                    { 1, "General list", "SYS" },
+                    { 2, "OptOut", "SYS" },
+                    { 3, "Exclusion/Bounce", "SYS" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -12,9 +12,14 @@ namespace MKTListNet.Infra.EntityConfig
 
             builder.HasKey(x => x.ListId);
 
-            builder.Property(x => x.ListName)
+            builder.Property(x => x.Name)
                 .HasColumnType("varchar(200)")
                 .HasMaxLength(200)
+                .IsRequired();
+
+            builder.Property(x => x.Type)
+                .HasColumnType("varchar(10)")
+                .HasMaxLength(10)
                 .IsRequired();
         }
     }

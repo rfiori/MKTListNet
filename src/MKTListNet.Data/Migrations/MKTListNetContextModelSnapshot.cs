@@ -15,7 +15,7 @@ namespace MKTListNet.Infra.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.2");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
 
             modelBuilder.Entity("MKTListNet.Domain.Entities.Email", b =>
                 {
@@ -45,10 +45,15 @@ namespace MKTListNet.Infra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("ListName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)");
 
                     b.HasKey("ListId");
 
@@ -58,17 +63,20 @@ namespace MKTListNet.Infra.Migrations
                         new
                         {
                             ListId = 1,
-                            ListName = "Geral list"
+                            Name = "General list",
+                            Type = "SYS"
                         },
                         new
                         {
                             ListId = 2,
-                            ListName = "OptOut"
+                            Name = "OptOut",
+                            Type = "SYS"
                         },
                         new
                         {
                             ListId = 3,
-                            ListName = "Exclusion/Bounce"
+                            Name = "Exclusion/Bounce",
+                            Type = "SYS"
                         });
                 });
 

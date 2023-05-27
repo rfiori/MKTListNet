@@ -42,12 +42,12 @@ namespace MKTListNet.Infra
         private void SeedDataIntity(ModelBuilder builder)
         {
             builder.Entity<EmailList>().HasData(
-               new EmailList { ListId = 1, ListName = "Geral list" },
-                    new EmailList { ListId = 2, ListName = "OptOut" },
-                    new EmailList { ListId = 3, ListName = "Exclusion/Bounce" }
+               new EmailList { ListId = 1, Name = "General list", Type = "SYS" },
+                    new EmailList { ListId = 2, Name = "OptOut", Type = "SYS" },
+                    new EmailList { ListId = 3, Name = "Exclusion/Bounce", Type = "SYS" }
                 );
 
-            // Add User.
+            // Add User Admin, only for first migration.
             /*builder.Entity<MKTListNetUser>().HasData(
                 new MKTListNetUser
                 {

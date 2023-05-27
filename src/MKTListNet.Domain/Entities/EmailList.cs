@@ -4,6 +4,8 @@
     {
         public int ListId { get; set; }
 
-        public string ListName { get; set; } = null!;
+        public string Name { get; set; } = null!;
+        
+        public string Type { get; set; } = null!;
     }
 }
