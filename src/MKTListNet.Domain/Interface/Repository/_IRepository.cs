@@ -20,9 +20,9 @@ namespace MKTListNet.Domain.Interface.Repository
 
         TEntity? Update(TEntity obj);
 
-        void Remove(Guid id);
+        int Remove(Guid id);
 
-        void Remove(int id);
+        int Remove(int id);
 
         int SaveChanges();
     }

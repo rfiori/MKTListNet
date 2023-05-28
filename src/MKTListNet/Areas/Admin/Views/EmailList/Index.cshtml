@@ -1,0 +1,121 @@
+﻿@using MKTListNet.Domain.Entities;
+@model IEnumerable<EmailListViewModel>
+
+@{
+}
+
+<div class="container-fluid">
+    <div class="row border rounded mx-2 mt-2 pb-1 bg-light align-items-center">
+        <div class="h4">
+            Lista Cadastradas
+            <hr class="my-2" />
+        </div>
+
+        <div class="col">
+            <form action="EmailList">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="Search" placeholder="Search" aria-label="Search" aria-describedby="Search list">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </form>
+        </div>
+        <div class="col">
+            <div class=" p-1 text-center">
+                <a class="btn btn-primary" asp-action="NewLista" asp-controller="EmailLista" asp-area="Admin">Criar Lista</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mx-2 mt-2 align-items-center">
+        @if (Model == null || Model.Count() < 1)
+        {
+            <p class="h4 p-4">Não existe listas cadastradas!</p>
+        }
+        else
+        {
+            <div class="col-7 p-0">
+                <table class="table rounded">
+                    <thead>
+                        <tr class="bg-light">
+                            <th class="rounded" scope="row">
+                                <div class="col">Id</div>
+                            </th>
+                            <th class="rounded" scope="row">
+                                <div class="row justify-content-around">
+                                    <div class="col">Nome</div>
+                                    <div class="col-auto ms-auto fw-light small"> Total: @Model?.Count().ToString("N0")</div>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model!)
+                        {
+                            <tr>
+                                <td>
+                                    @item.id
+                                </td>
+                                <td>
+                                    @item.Name
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                @*<div class="text-end">
+            <div class="fw-light small">Página @Model.PageNumber de @Model.TotalPages</div>
+
+            <div class="justify-content-end fw-light">
+            <ul class="pagination">
+            @if (Model?.PageNumber > 1)
+            {
+            <li class="page-item">
+            <a class="page-link" href=@Url.Action("Index", new { page = 1 })>
+            <i class="fa-solid fa-angles-left"></i>
+            </a>
+            </li>
+
+            <li class="page-item">
+            <a class="page-link" href=@Url.Action("Index", new { page = Model.PageNumber - 1 })>
+            <i class="fa-solid fa-angle-left"></i>
+            </a>
+            </li>
+            }
+            @{
+            var ctIt = 0;
+            for (int ct = Model!.PageNumber; ct < Model?.TotalPages; ct++)
+            {
+            if (ctIt > 6)
+            {
+            break;
+            }
+            <li class="page-item">
+            @Html.ActionLink(ct.ToString(), "Index", new { page = ct }, new { @class = "page-link" })
+            </li>
+            ctIt++;
+            }
+            }
+            <li class="page-item">
+            @if (Model?.PageNumber < Model.TotalPages)
+            {
+            <a class="page-link" href=@Url.Action("Index", new { page = Model.PageNumber + 1 })>
+            <i class="fa-solid fa-angle-right"></i>
+            </a>
+            }
+            </li>
+            <li class="page-item">
+            <a class="page-link" href=@Url.Action("Index", new { page = Model.TotalPages })>
+            <i class="fa-solid fa-angles-right"></i>
+            </a>
+            </li>
+            </ul>
+            </div>
+
+            </div>*@
+            </div>
+        }
+    </div>
+
+    <br />
+</div>

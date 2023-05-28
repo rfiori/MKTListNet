@@ -10,6 +10,7 @@ namespace MKTListNet.Application.AutoMapper
         public DomainToViewModelMappingProfile()
         {
             CreateMap<Email, EmailViewModel>();
+            CreateMap<EmailList, EmailListViewModel>();
             CreateMap<PagingResult<Email>, PagingResult<EmailViewModel>>();
         }
     }

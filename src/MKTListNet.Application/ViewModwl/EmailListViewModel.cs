@@ -2,7 +2,7 @@
 
 namespace MKTListNet.Domain.Entities
 {
-    public class EmailListModel
+    public class EmailListViewModel
     {
         [Key]
         public int id { get; set; }

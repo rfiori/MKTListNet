@@ -98,9 +98,9 @@ namespace MKTListNet.Domain.Services
             return _emailRepository.Update(email);
         }
 
-        public void Remove(Guid id)
+        public int Remove(Guid id)
         {
-            _emailRepository.Remove(id);
+            return _emailRepository.Remove(id);
         }
 
         public int SaveChanges()

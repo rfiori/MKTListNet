@@ -73,9 +73,9 @@ namespace MKTListNet.Domain.Services
             return _emailListRepository.Update(email);
         }
 
-        public void Remove(int id)
+        public int Remove(int id)
         {
-            _emailListRepository.Remove(id);
+            return _emailListRepository.Remove(id);
         }
 
         public int SaveChanges()
