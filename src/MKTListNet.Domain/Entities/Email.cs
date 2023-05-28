@@ -2,7 +2,7 @@
 {
     public class Email
     {
-        public Guid EmailId { get; } = new Guid();
+        public Guid Id { get; } = new Guid();
 
         public String? Name { get; set; }
 

@@ -78,11 +78,15 @@ namespace MKTListNet.Infra.Repository
             return new PagingResult<TEntity>(ret2, page, pageSize, TotalItems, TotalPages);
         }
 
-        public TEntity Updeate(TEntity obj)
+        public TEntity? Update(TEntity obj)
         {
+            if (obj == null)
+                return null;
+
             var entry = _DBContext.Entry(obj);
             _DbSet.Attach(obj);
             entry.State = EntityState.Modified;
+            
             SaveChanges();
             return obj;
         }
@@ -92,6 +96,8 @@ namespace MKTListNet.Infra.Repository
             var obj = GetByIdAsync(id)?.Result;
             if (obj != null)
                 _DbSet.Remove(obj);
+
+            SaveChanges();
         }
 
         public void Remove(int id)
@@ -99,6 +105,8 @@ namespace MKTListNet.Infra.Repository
             var obj = GetByIdAsync(id)?.Result;
             if (obj != null)
                 _DbSet.Remove(obj);
+
+            SaveChanges();
         }
 
         public int SaveChanges()

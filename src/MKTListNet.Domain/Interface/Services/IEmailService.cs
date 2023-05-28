@@ -20,7 +20,7 @@ namespace MKTListNet.Domain.Interface.Services
 
         IEnumerable<Email>? Find(Expression<Func<Email, bool>> predicate);
 
-        Email Updeate(Email email);
+        Email? Update(Email email);
 
         void Remove(Guid id);
 

@@ -19,7 +19,7 @@ namespace MKTListNet.Infra.Migrations
 
             modelBuilder.Entity("MKTListNet.Domain.Entities.Email", b =>
                 {
-                    b.Property<Guid>("EmailId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
@@ -32,7 +32,7 @@ namespace MKTListNet.Infra.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.HasKey("EmailId");
+                    b.HasKey("Id");
 
                     b.HasIndex("EmailAddress");
 
@@ -41,7 +41,7 @@ namespace MKTListNet.Infra.Migrations
 
             modelBuilder.Entity("MKTListNet.Domain.Entities.EmailList", b =>
                 {
-                    b.Property<int>("ListId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -51,30 +51,29 @@ namespace MKTListNet.Infra.Migrations
                         .HasColumnType("varchar(200)");
 
                     b.Property<string>("Type")
-                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("varchar(10)");
 
-                    b.HasKey("ListId");
+                    b.HasKey("Id");
 
                     b.ToTable("EmailList", (string)null);
 
                     b.HasData(
                         new
                         {
-                            ListId = 1,
+                            Id = 1,
                             Name = "General list",
                             Type = "SYS"
                         },
                         new
                         {
-                            ListId = 2,
+                            Id = 2,
                             Name = "OptOut",
                             Type = "SYS"
                         },
                         new
                         {
-                            ListId = 3,
+                            Id = 3,
                             Name = "Exclusion/Bounce",
                             Type = "SYS"
                         });

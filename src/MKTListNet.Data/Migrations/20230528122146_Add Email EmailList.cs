@@ -17,32 +17,32 @@ namespace MKTListNet.Infra.Migrations
                 name: "Email",
                 columns: table => new
                 {
-                    EmailId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     EmailAddress = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Email", x => x.EmailId);
+                    table.PrimaryKey("PK_Email", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "EmailList",
                 columns: table => new
                 {
-                    ListId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false),
-                    Type = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false)
+                    Type = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmailList", x => x.ListId);
+                    table.PrimaryKey("PK_EmailList", x => x.Id);
                 });
 
             migrationBuilder.InsertData(
                 table: "EmailList",
-                columns: new[] { "ListId", "Name", "Type" },
+                columns: new[] { "Id", "Name", "Type" },
                 values: new object[,]
                 {
                     { 1, "General list", "SYS" },

@@ -93,9 +93,9 @@ namespace MKTListNet.Domain.Services
             return await _emailRepository.GetByIdAsync(id);
         }
 
-        public Email Updeate(Email email)
+        public Email? Update(Email email)
         {
-            return _emailRepository.Updeate(email);
+            return _emailRepository.Update(email);
         }
 
         public void Remove(Guid id)

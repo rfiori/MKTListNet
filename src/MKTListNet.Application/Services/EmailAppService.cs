@@ -63,7 +63,7 @@ namespace MKTListNet.Application.Services
         public EmailViewModel Updeate(EmailViewModel emailVM)
         {
             var email = _mapper.Map<Email>(emailVM);
-            var emailRet = _emailService.Updeate(email);
+            var emailRet = _emailService.Update(email);
             if (emailRet != null)
             {
                 _emailService.SaveChanges();

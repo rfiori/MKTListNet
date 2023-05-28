@@ -18,7 +18,7 @@ namespace MKTListNet.Domain.Interface.Repository
 
         IEnumerable<TEntity>? Find(Expression<Func<TEntity, bool>> predicate);
 
-        TEntity Updeate(TEntity obj);
+        TEntity? Update(TEntity obj);
 
         void Remove(Guid id);
 

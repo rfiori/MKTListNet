@@ -10,7 +10,7 @@ namespace MKTListNet.Infra.EntityConfig
         {
             builder.ToTable("EmailList");
 
-            builder.HasKey(x => x.ListId);
+            builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Name)
                 .HasColumnType("varchar(200)")
@@ -19,8 +19,7 @@ namespace MKTListNet.Infra.EntityConfig
 
             builder.Property(x => x.Type)
                 .HasColumnType("varchar(10)")
-                .HasMaxLength(10)
-                .IsRequired();
+                .HasMaxLength(10);
         }
     }
 }

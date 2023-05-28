@@ -42,9 +42,9 @@ namespace MKTListNet.Infra
         private void SeedDataIntity(ModelBuilder builder)
         {
             builder.Entity<EmailList>().HasData(
-               new EmailList { ListId = 1, Name = "General list", Type = "SYS" },
-                    new EmailList { ListId = 2, Name = "OptOut", Type = "SYS" },
-                    new EmailList { ListId = 3, Name = "Exclusion/Bounce", Type = "SYS" }
+               new EmailList { Id = 1, Name = "General list", Type = "SYS" },
+                    new EmailList { Id = 2, Name = "OptOut", Type = "SYS" },
+                    new EmailList { Id = 3, Name = "Exclusion/Bounce", Type = "SYS" }
                 );
 
             // Add User Admin, only for first migration.

@@ -10,7 +10,7 @@ namespace MKTListNet.Infra.EntityConfig
         {
             builder.ToTable("Email");
 
-            builder.HasKey(x => x.EmailId);
+            builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Name)
                 .HasColumnType("varchar(50)")
