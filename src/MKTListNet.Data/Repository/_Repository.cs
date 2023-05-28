@@ -91,22 +91,22 @@ namespace MKTListNet.Infra.Repository
             return obj;
         }
 
-        public void Remove(Guid id)
+        public int Remove(Guid id)
         {
             var obj = GetByIdAsync(id)?.Result;
             if (obj != null)
                 _DbSet.Remove(obj);
 
-            SaveChanges();
+            return SaveChanges();
         }
 
-        public void Remove(int id)
+        public int Remove(int id)
         {
             var obj = GetByIdAsync(id)?.Result;
             if (obj != null)
                 _DbSet.Remove(obj);
 
-            SaveChanges();
+            return SaveChanges();
         }
 
         public int SaveChanges()

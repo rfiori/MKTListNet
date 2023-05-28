@@ -5,7 +5,6 @@ using MKTListNet.Domain.Entities;
 using MKTListNet.Domain.Interface.Repository;
 using MKTListNet.Domain.Interface.Services;
 using MKTListNet.Infra.Repository;
-using System.Linq.Expressions;
 
 namespace MKTListNet.Application.Services
 {
@@ -45,9 +44,9 @@ namespace MKTListNet.Application.Services
             return _mapper.Map<PagingResult<EmailViewModel>?>(await _emailService.GetAllPagingAsync(pageSize, page));
         }
 
-        public async Task<IEnumerable<EmailViewModel>> GetAllAsync()
+        public async Task<IEnumerable<EmailViewModel>?> GetAllAsync()
         {
-            return _mapper.Map<IEnumerable<EmailViewModel>>(await _emailService.GetAllAsync());
+            return _mapper.Map<IEnumerable<EmailViewModel>?>(await _emailService.GetAllAsync());
         }
 
         public EmailViewModel? GetByEmail(string email)
@@ -60,26 +59,20 @@ namespace MKTListNet.Application.Services
             return _mapper.Map<EmailViewModel>(await _emailService.GetByIdAsync(id));
         }
 
-        public EmailViewModel Updeate(EmailViewModel emailVM)
+        public EmailViewModel Updeate(EmailViewModel retE)
         {
-            var email = _mapper.Map<Email>(emailVM);
-            var emailRet = _emailService.Update(email);
-            if (emailRet != null)
-            {
-                _emailService.SaveChanges();
-            }
-            emailVM = _mapper.Map<EmailViewModel>(emailRet);
-            return emailVM;
+            var emailRet = _emailService.Update(_mapper.Map<Email>(retE));
+            //if (emailRet != null)
+            //{
+            //    _emailService.SaveChanges();
+            //}
+            retE = _mapper.Map<EmailViewModel>(emailRet);
+            return retE;
         }
 
-        public void Remove(Guid id)
+        public int Remove(Guid id)
         {
-            _emailService.Remove(id);
-        }
-
-        public int SaveChanges()
-        {
-            return _emailService.SaveChanges();
+            return _emailService.Remove(id);
         }
 
         public void Dispose()

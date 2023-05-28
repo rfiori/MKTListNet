@@ -22,7 +22,7 @@ namespace MKTListNet.Domain.Interface.Services
 
         EmailList? Update(EmailList email);
 
-        void Remove(int id);
+        int Remove(int id);
 
         int SaveChanges();
     }

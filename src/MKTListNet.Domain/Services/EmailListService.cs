@@ -60,7 +60,7 @@ namespace MKTListNet.Domain.Services
 
         public IEnumerable<EmailList>? GetByListName(string listName)
         {
-            return string.IsNullOrEmpty(listName) ? null : Find(e => e.Name == listName || e.Name.Contains(listName));
+            return string.IsNullOrEmpty(listName) ? null : Find(e => e.Name.ToUpper()!.Contains(listName.ToUpper()));
         }
 
         public async Task<EmailList?> GetByIdAsync(int id)
@@ -73,9 +73,9 @@ namespace MKTListNet.Domain.Services
             return _emailListRepository.Update(email);
         }
 
-        public void Remove(int id)
+        public int Remove(int id)
         {
-            _emailListRepository.Remove(id);
+            return _emailListRepository.Remove(id);
         }
 
         public int SaveChanges()
