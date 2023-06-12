@@ -32,6 +32,7 @@ namespace MKTListNet.Areas.Admin.Controllers
 
             if (!string.IsNullOrEmpty(search) && search.Length > 2)
             {
+                ViewBag.Search = search;
                 lstEmail = _emailAppService.GetEmails(search.ToLower(), pageSize, page);
                 return View(lstEmail);
             }

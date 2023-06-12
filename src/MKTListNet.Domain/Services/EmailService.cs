@@ -62,7 +62,7 @@ namespace MKTListNet.Domain.Services
         public IPagingResult<Email>? GetEmails(string containsEmail, int pageSize = 100, int page = 1)
         {
             pageSize = pageSize == 0 ? 100 : pageSize;
-            page = page == 0 ? 1 : pageSize;
+            page = page == 0 ? 1 : page;
             return _emailRepository.FindPaging(em => em.EmailAddress.Contains(containsEmail), pageSize, page);
         }
 

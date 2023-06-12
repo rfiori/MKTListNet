@@ -23,6 +23,7 @@ namespace MKTListNet.Areas.Admin.Controllers
 
             if (!string.IsNullOrEmpty(search) && search.Length > 2)
             {
+                ViewBag.Search = search;
                 elVM = _emailListAppService.GetByListName(search);
                 return View(elVM);
             }

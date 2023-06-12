@@ -15,7 +15,7 @@
         <div class="col">
             <form action="Emails">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="search" placeholder="Search" autocomplete="off" aria-label="Search" aria-describedby="Search email">
+                    <input type="text" class="form-control" name="search" placeholder="Search" autocomplete="off" value="@ViewBag.Search" autofocus aria-label="Search" aria-describedby="Search email">
                     <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </form>
@@ -58,6 +58,7 @@
                     </tbody>
                 </table>
 
+                @*----------------- Paginacao -----------------*@
                 <div class="text-end">
                     <div class="fw-light small">Página @Model.PageNumber de @Model.TotalPages</div>
 
@@ -66,48 +67,93 @@
                             @if (Model?.PageNumber > 1)
                             {
                                 <li class="page-item">
-                                    <a class="page-link" href=@Url.Action("Index", new { page = 1 })>
+                                    <a class="page-link" href=@Url.Action("Index", new {search = ViewBag.Search, page = 1 })>
                                         <i class="fa-solid fa-angles-left"></i>
                                     </a>
                                 </li>
 
                                 <li class="page-item">
-                                    <a class="page-link" href=@Url.Action("Index", new { page = Model.PageNumber - 1 })>
+                                    <a class="page-link" href=@Url.Action("Index", new {search = ViewBag.Search, page = Model.PageNumber - 1 })>
                                         <i class="fa-solid fa-angle-left"></i>
                                     </a>
                                 </li>
                             }
+
                             @{
-                                var ctIt = 0;
-                                for (int ct = Model!.PageNumber; ct < Model?.TotalPages; ct++)
+                                int ctIt = 0, // page number count.
+                                pageStart = 1;
+
+                                if (Model?.TotalPages - Model?.PageNumber > 5 || Model?.TotalPages - Model?.PageNumber < 4)
                                 {
-                                    if (ctIt > 6)
+                                    pageStart = Model!.PageNumber - 4;
+                                }
+                                else if (Model?.TotalPages - Model?.PageNumber > 3)
+                                {
+                                    pageStart = Model!.PageNumber - 3;
+                                }
+                                else if (Model?.TotalPages - Model?.PageNumber > 2)
+                                {
+                                    pageStart = Model!.PageNumber - 2;
+                                }
+                                else if (Model?.TotalPages - Model?.PageNumber > 1)
+                                {
+                                    pageStart = Model!.PageNumber - 1;
+                                }
+                                else if (Model?.PageNumber == Model?.TotalPages)
+                                {
+                                    pageStart = Model!.PageNumber - 5;
+                                }
+
+                                if (pageStart < 1)
+                                {
+                                    pageStart = 1;
+                                }
+
+                                for (int ct = pageStart; ct <= Model?.TotalPages; ct++)
+                                {
+                                    if (ctIt > 8)
                                     {
                                         break;
                                     }
-                                    <li class="page-item">
-                                        @Html.ActionLink(ct.ToString(), "Index", new { page = ct }, new { @class = "page-link" })
-                                    </li>
+
+                                    if (Model.PageNumber == ct)
+                                    {
+                                        <li class="page-item active" aria-current="page">
+                                            @Html.ActionLink(ct.ToString(), "Index", new {search = ViewBag.Search, page = ct }, new { @class = "page-link" })
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="page-item">
+                                            @Html.ActionLink(ct.ToString(), "Index", new {search = ViewBag.Search, page = ct }, new { @class = "page-link" })
+                                        </li>
+                                    }
                                     ctIt++;
                                 }
                             }
-                            <li class="page-item">
-                                @if (Model?.PageNumber < Model.TotalPages)
-                                {
-                                    <a class="page-link" href=@Url.Action("Index", new { page = Model.PageNumber + 1 })>
+
+                            @if (Model?.PageNumber < Model?.TotalPages)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href=@Url.Action("Index", new {search = ViewBag.Search, page = Model?.PageNumber + 1 })>
                                         <i class="fa-solid fa-angle-right"></i>
                                     </a>
-                                }
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href=@Url.Action("Index", new { page = Model.TotalPages })>
-                                    <i class="fa-solid fa-angles-right"></i>
-                                </a>
-                            </li>
+                                </li>
+                            }
+
+                            @if (!(Model?.PageNumber == Model?.TotalPages))
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href=@Url.Action("Index", new {search = ViewBag.Search, page = Model?.TotalPages })>
+                                        <i class="fa-solid fa-angles-right"></i>
+                                    </a>
+                                </li>
+                            }
                         </ul>
                     </div>
-
                 </div>
+                @*----------------- Paginacao -----------------*@
+
             </div>
         }
     </div>
