@@ -1,0 +1,103 @@
+﻿@using MKTListNet.Views.Shared;
+@model PagingData
+@{
+}
+
+@*----------------- Paginacao -----------------*@
+<div class="text-end">
+    @if (Model.ShowPageCount)
+    {
+        <div class="fw-light small">Página @Model.PageNumber de @Model.TotalPages</div>
+    }
+
+    <div class="justify-content-end fw-light">
+        <ul class="pagination">
+            @if (Model?.PageNumber > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href=@Url.Action(Model.ActionPage, new {search = ViewBag.Search, page = 1 })>
+                        <i class="fa-solid fa-angles-left"></i>
+                    </a>
+                </li>
+
+                <li class="page-item">
+                    <a class="page-link" href=@Url.Action(Model.ActionPage, new {search = ViewBag.Search, page = Model.PageNumber - 1 })>
+                        <i class="fa-solid fa-angle-left"></i>
+                    </a>
+                </li>
+            }
+
+            @{
+                int ctIt = 0, // page number count.
+                pageStart = 1;// page number start.
+
+                if (Model?.TotalPages - Model?.PageNumber > 5 || Model?.TotalPages - Model?.PageNumber < 4)
+                {
+                    pageStart = Model!.PageNumber - 4;
+                }
+                else if (Model?.TotalPages - Model?.PageNumber > 3)
+                {
+                    pageStart = Model!.PageNumber - 3;
+                }
+                else if (Model?.TotalPages - Model?.PageNumber > 2)
+                {
+                    pageStart = Model!.PageNumber - 2;
+                }
+                else if (Model?.TotalPages - Model?.PageNumber > 1)
+                {
+                    pageStart = Model!.PageNumber - 1;
+                }
+                else if (Model?.PageNumber == Model?.TotalPages)
+                {
+                    pageStart = Model!.PageNumber - 5;
+                }
+
+                if (pageStart < 1)
+                {
+                    pageStart = 1;
+                }
+
+                for (int ct = pageStart; ct <= Model?.TotalPages; ct++)
+                {
+                    if (ctIt > 8)
+                    {
+                        break;
+                    }
+
+                    if (Model.PageNumber == ct)
+                    {
+                        <li class="page-item active" aria-current="page">
+                            @Html.ActionLink(ct.ToString(), Model.ActionPage, new {search = ViewBag.Search, page = ct }, new { @class = "page-link" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            @Html.ActionLink(ct.ToString(), Model.ActionPage, new {search = ViewBag.Search, page = ct }, new { @class = "page-link" })
+                        </li>
+                    }
+                    ctIt++;
+                }
+            }
+
+            @if (Model?.PageNumber < Model?.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href=@Url.Action(Model.ActionPage, new {search = ViewBag.Search, page = Model?.PageNumber + 1 })>
+                        <i class="fa-solid fa-angle-right"></i>
+                    </a>
+                </li>
+            }
+
+            @if (!(Model?.PageNumber == Model?.TotalPages))
+            {
+                <li class="page-item">
+                    <a class="page-link" href=@Url.Action(Model.ActionPage, new {search = ViewBag.Search, page = Model?.TotalPages })>
+                        <i class="fa-solid fa-angles-right"></i>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+@*----------------- Paginacao -----------------*@
