@@ -37,7 +37,7 @@ namespace MKTListNet.Areas.Admin.Controllers
                 return View(lstEmail);
             }
 
-            lstEmail = await _emailAppService.GetAllPagingAsync(pageSize, page);
+            lstEmail = await _emailAppService.GetAllPagingAsync(100,page);
             return View(lstEmail);
         }
 

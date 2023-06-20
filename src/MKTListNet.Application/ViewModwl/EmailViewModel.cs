@@ -5,7 +5,7 @@ namespace MKTListNet.Application.ViewModel
     public class EmailViewModel
     {
         [Key]
-        public Guid EmailId { get; set; } = new Guid();
+        public Guid Id { get; set; } = new Guid();
 
         public String? Name { get; set; }
 
