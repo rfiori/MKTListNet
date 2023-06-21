@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MKTListNet.Domain.Entities
+namespace MKTListNet.Application.ViewModel
 {
     public class EmailListViewModel
     {

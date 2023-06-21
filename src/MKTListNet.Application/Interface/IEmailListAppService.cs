@@ -1,4 +1,5 @@
-﻿using MKTListNet.Domain.Entities;
+﻿using MKTListNet.Application.ViewModel;
+using MKTListNet.Domain.Entities;
 
 namespace MKTListNet.Application.Interface
 {

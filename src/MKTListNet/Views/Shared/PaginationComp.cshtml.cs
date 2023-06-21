@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace MKTListNet.Views.Shared
@@ -24,7 +23,7 @@ namespace MKTListNet.Views.Shared
             ActionPage = actionPage;
             PageNumber = pgNumber;
             TotalPages = totalPg;
-            PageSize = pgSize;  
+            PageSize = pgSize;
             ShowPageCount = showPageCount;
         }
     }

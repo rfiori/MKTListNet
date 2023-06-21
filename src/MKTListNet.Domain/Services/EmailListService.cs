@@ -29,9 +29,9 @@ namespace MKTListNet.Domain.Services
             return _emailListRepository.Add(list);
         }
 
-        private bool ListExistente(string email)
+        private bool ListExistente(string name)
         {
-            return string.IsNullOrEmpty(email) || GetByListName(email) != null;
+            return string.IsNullOrEmpty(name) || GetByListName(name).Count() > 0;
         }
 
         //public IPagingResult<EmailList>? GetEmails(string containsEmailList, int pageSize = 100, int page = 1)
