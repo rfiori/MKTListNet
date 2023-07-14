@@ -28,7 +28,7 @@
                     Adicione um email por linha
                 </div>
                 <form asp-action="AddEmails" asp-controller="Emails" asp-area="Admin" method="post">
-                    <textarea class="form-control" style="height:400px;" name="emails" autofocus> </textarea>
+                    <textarea class="form-control" style="height:400px;" name="emails" autofocus>@ViewBag.lstCodes</textarea>
                     <br />
                     <div class="col-5 mx-auto">
                         <input class="form-control btn btn-primary" type="submit" value="Importar" />

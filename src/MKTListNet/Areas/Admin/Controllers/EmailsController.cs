@@ -41,6 +41,27 @@ namespace MKTListNet.Areas.Admin.Controllers
             return View(lstEmail);
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ExportEmails(string? lstCodes)
+        {
+            if (lstCodes != null)
+            {
+                //try
+                //{
+                //    var arrEmails = emails!.Split(',');
+                //    foreach (var item in arrEmails!)
+                //    {
+
+                //    }
+                //}
+
+                ViewBag.lstCodes = lstCodes;
+            }
+            return View("AddEmails");
+        }
+
         public IActionResult AddEmails()
         {
             return View();
