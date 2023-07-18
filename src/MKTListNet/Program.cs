@@ -28,6 +28,10 @@ builder.Services.AutoMapperConfiguration();
 // .NET Native DI Abstraction
 builder.Services.AddDependencyInjectionConfiguration();
 
+builder.Services.AddMvc();
+//bundling and minification of CSS and JavaScript
+builder.Services.AddWebOptimizer();
+
 builder.Services.Configure<IdentityOptions>(o =>
 {
     o.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(3);
@@ -59,6 +63,9 @@ else
 }
 
 app.UseHttpsRedirection();
+
+app.UseWebOptimizer(); // Use middleware for bundling and minification of CSS and JavaScript files at runtime.
+
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
