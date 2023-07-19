@@ -92,7 +92,7 @@
             @if (!(Model?.PageNumber == Model?.TotalPages))
             {
                 <li class="page-item">
-                    <a class="page-link" href=@Url.Action(Model.ActionPage, new {search = ViewBag.Search, page = Model?.TotalPages })>
+                    <a class="page-link" href=@Url.Action(Model?.ActionPage, new {search = ViewBag.Search, page = Model?.TotalPages })>
                         <i class="fa-solid fa-angles-right"></i>
                     </a>
                 </li>

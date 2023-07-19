@@ -25,10 +25,10 @@ namespace MKTListNet.Areas.Admin.Controllers
             if (!string.IsNullOrEmpty(search) && search.Length > 2)
             {
                 ViewBag.Search = search;
-                emailListModel.lstEmailList = _emailListAppService.GetByListName(search);
+                emailListModel.EmailLists = _emailListAppService.GetByListName(search);
                 return View(emailListModel);
             }
-            emailListModel.lstEmailList = await GetAllListAsync();
+            emailListModel.EmailLists = await GetAllListAsync();
             return View(emailListModel);
         }
 
@@ -51,7 +51,7 @@ namespace MKTListNet.Areas.Admin.Controllers
                 _emailListAppService.Add(new EmailListViewModel { Name = newList });
             }
 
-            emailListModel.lstEmailList = GetAllListAsync().Result;
+            emailListModel.EmailLists = GetAllListAsync().Result;
             return View("Index", emailListModel);
         }
     }

@@ -2,27 +2,22 @@
 using Microsoft.AspNetCore.Mvc;
 using MKTListNet.Application.Interface;
 using MKTListNet.Application.ViewModel;
+using MKTListNet.Areas.Admin.Models;
 using MKTListNet.Domain.Interface.Repository;
 
 namespace MKTListNet.Areas.Admin.Controllers
 {
-    public record RetAddEmail
-    {
-        public int EmailAdd { get; set; }
-        public int EmailReject { get; set; }
-    }
-
-    //---------------------------------------------------------------------------//
-
     [Area("Admin")]
     [Authorize()]
     public class EmailsController : Controller
     {
         private readonly IEmailAppService _emailAppService;
+        private readonly IEmailListAppService _emailListAppService;
 
-        public EmailsController(IEmailAppService emailAppService)
+        public EmailsController(IEmailAppService emailAppService, IEmailListAppService emailListAppService)
         {
             _emailAppService = emailAppService;
+            _emailListAppService = emailListAppService;
         }
 
 
@@ -41,46 +36,35 @@ namespace MKTListNet.Areas.Admin.Controllers
             return View(lstEmail);
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ExportEmails(string? lstCodes)
+        public IActionResult ExportEmails(string? emails)
         {
-            if (lstCodes != null)
-            {
-                //try
-                //{
-                //    var arrEmails = emails!.Split(',');
-                //    foreach (var item in arrEmails!)
-                //    {
-
-                //    }
-                //}
-
-                ViewBag.lstCodes = lstCodes;
-            }
+            if (emails != null)
+                ViewBag.lstEmails = emails;
             return View("AddEmails");
         }
 
         public IActionResult AddEmails()
         {
-            return View();
+            var model = new EmailListModel() { EmailLists = _emailListAppService.GetAllAsync().Result };
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddEmails(string emails)
         {
-            var ret = new RetAddEmail();
+            var retModel = new EmailListModel();
 
             if (string.IsNullOrEmpty(emails))
-                return View(ret);
+                return View(retModel);
 
-            var lstEmail = emails.Replace("\r\n", ";").Split(';').ToList<string>();
-            ret.EmailAdd = await _emailAppService.AddBulkAsync(lstEmail);
-            ret.EmailReject = lstEmail.Count - ret.EmailAdd;
+            var lstEmail = emails.Trim().Replace("\r\n", ";").Split(';').ToList<string>();
+            retModel.RetAddEmail!.EmailAdd = await _emailAppService.AddBulkAsync(lstEmail);
+            retModel.RetAddEmail.EmailReject = lstEmail.Count - retModel.RetAddEmail.EmailAdd;
 
-            return View(ret);
+            return View(retModel);
         }
     }
 }

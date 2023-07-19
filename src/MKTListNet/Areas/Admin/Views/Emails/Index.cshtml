@@ -7,8 +7,8 @@
 }
 
 <div class="container-fluid">
-    <div class="row border rounded mx-2 mt-2 pb-1 bg-light align-items-center">
-        <div class="h4">
+    <div class="row sticky-top border rounded mx-2 mt-2 pb-1 bg-light align-items-center">
+        <div class="col-12 h4">
             Emails Cadastrados
             <hr class="my-2" />
         </div>
@@ -21,10 +21,11 @@
                 </div>
             </form>
         </div>
+
         <div class="col">
-            <div class=" p-1 text-center">
+            <div class="p-1 text-center">
                 <form id="frmExport" asp-action="ExportEmails" asp-asp-controller="Emails" asp-asp-area="Admin" method="post">
-                    <textarea class="visually-hidden" id="dataExport" name="lstCodes"></textarea>
+                    <textarea class="visually-hidden" id="dataExport" name="emails"></textarea>
                 </form>
                 <button class="btn btn-primary" id="btnExport" disabled title="Adicionar emails selecionados em uma lista" onclick="PrepareAndExport();"><i class="fa-solid fa-arrow-right-to-bracket"></i></button>
                 &ensp;
@@ -37,7 +38,7 @@
     <div class="row mx-2 mt-2 align-items-center">
         @if (Model == null || Model.Items == null || Model.Items.Count() < 1)
         {
-            <p class="h4 p-4">Não existe emails cadastrados!</p>
+            <p class="h4 p-4">Não existem emails cadastrados!</p>
         }
         else
         {

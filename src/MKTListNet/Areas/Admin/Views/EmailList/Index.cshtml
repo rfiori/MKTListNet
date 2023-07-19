@@ -34,7 +34,7 @@
     </div>
 
     <div class="row mx-2 mt-2 align-items-center">
-        @if (Model == null || Model?.lstEmailList?.Count() < 1)
+        @if (Model == null || Model?.EmailLists?.Count() < 1)
         {
             <p class="h4 p-4">Não existe listas cadastradas!</p>
         }
@@ -50,13 +50,13 @@
                             <th class="rounded" scope="row">
                                 <div class="row justify-content-around">
                                     <div class="col">Nome</div>
-                                    <div class="col-auto ms-auto fw-light small"> Total: @Model?.lstEmailList?.Count().ToString("N0")</div>
+                                    <div class="col-auto ms-auto fw-light small"> Total: @Model?.EmailLists?.Count().ToString("N0")</div>
                                 </div>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model!.lstEmailList!)
+                        @foreach (var item in Model?.EmailLists!)
                         {
                             <tr>
                                 <td>
