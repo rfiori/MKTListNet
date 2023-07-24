@@ -1,5 +1,4 @@
-﻿using MKTListNet.Application.Interface;
-using MKTListNet.Application.ViewModel;
+﻿using MKTListNet.Application.ViewModel;
 
 namespace MKTListNet.Areas.Admin.Models
 {
@@ -11,6 +10,16 @@ namespace MKTListNet.Areas.Admin.Models
 
     //---------------------------------------------------------------------------//
 
+    public record EmailListDataModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = null!;
+        public string? Type { get; set; }
+        public int totalEmailCount { get; set; }
+    }
+
+    //---------------------------------------------------------------------------//
+
     public class EmailListModel
     {
         public RetAddEmail? RetAddEmail = new();
@@ -18,7 +27,7 @@ namespace MKTListNet.Areas.Admin.Models
         /// <summary>
         /// List of EmailList
         /// </summary>
-        public IEnumerable<EmailListViewModel>? EmailLists { get; set; }
+        public IEnumerable<EmailListDataModel>? EmailLists { get; set; }
 
         /// <summary>
         /// Mensagens for View.

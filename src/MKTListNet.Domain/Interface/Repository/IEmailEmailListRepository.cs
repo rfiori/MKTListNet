@@ -2,8 +2,7 @@
 
 namespace MKTListNet.Domain.Interface.Repository
 {
-    public interface IEmailRepository : IRepository<Email>
+    public interface IEmailEmailListRepository : IRepository<EmailEmailList>
     {
-        Email? GetByEmail(string email);
     }
 }

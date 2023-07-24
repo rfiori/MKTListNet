@@ -4,6 +4,7 @@ using MKTListNet.Application.Interface;
 using MKTListNet.Application.ViewModel;
 using MKTListNet.Areas.Admin.Models;
 using MKTListNet.Domain.Interface.Repository;
+using System.Collections.ObjectModel;
 
 namespace MKTListNet.Areas.Admin.Controllers
 {
@@ -13,11 +14,13 @@ namespace MKTListNet.Areas.Admin.Controllers
     {
         private readonly IEmailAppService _emailAppService;
         private readonly IEmailListAppService _emailListAppService;
+        private readonly IEmailEmailListAppServive _emailEmlLstAppServive;
 
-        public EmailsController(IEmailAppService emailAppService, IEmailListAppService emailListAppService)
+        public EmailsController(IEmailAppService emailAppService, IEmailListAppService emailListAppService, IEmailEmailListAppServive emailEmlLstAppService)
         {
             _emailAppService = emailAppService;
             _emailListAppService = emailListAppService;
+            _emailEmlLstAppServive = emailEmlLstAppService;
         }
 
 
@@ -36,24 +39,44 @@ namespace MKTListNet.Areas.Admin.Controllers
             return View(lstEmail);
         }
 
+
+        internal IEnumerable<EmailListDataModel>? ConvertToListDataModel(IEnumerable<EmailListViewModel>? lst)
+        {
+            if (lst == null)
+                return null;
+
+            var ret = new Collection<EmailListDataModel>();
+            foreach (var i in lst)
+            {
+                var t = _emailEmlLstAppServive.GetByEmailListId(i.id)!.Count();
+                ret.Add(new EmailListDataModel { Id = i.id, Name = i.Name, Type = i.Type, totalEmailCount = t });
+            }
+
+            return ret;
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ExportEmails(string? emails)
         {
             if (emails != null)
                 ViewBag.lstEmails = emails;
-            return View("AddEmails");
+
+            var model = new EmailListModel() { EmailLists = ConvertToListDataModel(_emailListAppService.GetAllAsync().Result) };
+
+            return View("AddEmails", model);
         }
 
         public IActionResult AddEmails()
         {
-            var model = new EmailListModel() { EmailLists = _emailListAppService.GetAllAsync().Result };
+            var model = new EmailListModel() { EmailLists = ConvertToListDataModel(_emailListAppService.GetAllAsync().Result) };
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddEmails(string emails)
+        public async Task<IActionResult> AddEmails(string emails, int? idList)
         {
             var retModel = new EmailListModel();
 
@@ -61,7 +84,9 @@ namespace MKTListNet.Areas.Admin.Controllers
                 return View(retModel);
 
             var lstEmail = emails.Trim().Replace("\r\n", ";").Split(';').ToList<string>();
-            retModel.RetAddEmail!.EmailAdd = await _emailAppService.AddBulkAsync(lstEmail);
+
+            retModel.RetAddEmail!.EmailAdd = await _emailAppService.AddBulkAsync(lstEmail, idList);
+
             retModel.RetAddEmail.EmailReject = lstEmail.Count - retModel.RetAddEmail.EmailAdd;
 
             return View(retModel);

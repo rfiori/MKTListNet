@@ -2,8 +2,6 @@
 using MKTListNet.Domain.Interface.Repository;
 using MKTListNet.Domain.Interface.Services;
 using System.Linq.Expressions;
-using System.Security.Cryptography.X509Certificates;
-using System.Text.RegularExpressions;
 
 namespace MKTListNet.Domain.Services
 {
@@ -31,7 +29,7 @@ namespace MKTListNet.Domain.Services
 
         private bool ListExistente(string name)
         {
-            return string.IsNullOrEmpty(name) || GetByListName(name).Count() > 0;
+            return string.IsNullOrEmpty(name) || GetByListName(name)?.Count() > 0;
         }
 
         //public IPagingResult<EmailList>? GetEmails(string containsEmailList, int pageSize = 100, int page = 1)

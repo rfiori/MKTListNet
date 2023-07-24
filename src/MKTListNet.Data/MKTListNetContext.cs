@@ -12,6 +12,7 @@ namespace MKTListNet.Infra
 
         public DbSet<Email> Email { get; set; }
         public DbSet<EmailList> EmailList { get; set; }
+        public DbSet<EmailEmailList> EmailEmailList { get; set; }
 
 
 
@@ -35,6 +36,7 @@ namespace MKTListNet.Infra
 
             builder.ApplyConfiguration(new EmailConfig());
             builder.ApplyConfiguration(new EmailListConfig());
+            builder.ApplyConfiguration(new EmailEmailListConfig());
 
             SeedDataIntity(builder);
         }

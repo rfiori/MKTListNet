@@ -24,12 +24,35 @@
     <div class="row justify-content-center">
         <div class="col-8">
             <div class="border rounded p-3">
-                <div class="alert alert-secondary">
-                    Adicione um email por linha
+                <div class="row px-2">
+                    <div class="col bg-light p-1 mb-2">
+                        Adicione um email por linha
+                    </div>
+                    <div class="col bg-light p-1 mb-2 text-end">
+                        linhas: <span id="ctLine">0</span>
+                    </div>
                 </div>
                 <form asp-action="AddEmails" asp-controller="Emails" asp-area="Admin" method="post">
-                    <textarea class="form-control" style="height:400px;" name="emails" autofocus>@ViewBag.lstEmails</textarea>
+                    <textarea class="form-control" style="height:400px;" id="txtEmails" name="emails" autofocus onkeyup="countLines();">@ViewBag.lstEmails</textarea>
                     <br />
+
+                    @if (Model?.EmailLists != null && Model.EmailLists.Count() > 0)
+                    {
+
+                        <div class="col pb-5">
+                            <div class="input-group">
+                                <label class="input-group-text" for="select01">Enviar para a lista</label>
+                                <select class="form-select" aria-label="" name="idList" id="select01">
+                                    <option selected></option>
+                                    @foreach (var item in Model?.EmailLists!)
+                                    {
+                                        <option value="@item.Id">@item.Name (@item.totalEmailCount)</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    }
+
                     <div class="col-5 mx-auto">
                         <input class="form-control btn btn-primary" type="submit" value="Importar" />
                     </div>
@@ -38,3 +61,18 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script type="text/javascript">
+        function countLines() {
+            const textarea = document.getElementById('txtEmails');
+            const texto = textarea.value;
+
+            // Contar o número de quebras de linha (\n) no texto
+            const numeroLinhas = (texto.match(/\n/g) || []).length + 1;
+
+            var disp = document.getElementById("ctLine");
+            disp.textContent = numeroLinhas;
+        }
+    </script>
+}

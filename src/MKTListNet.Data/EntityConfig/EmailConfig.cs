@@ -22,6 +22,19 @@ namespace MKTListNet.Infra.EntityConfig
                 .IsRequired();
 
             builder.HasIndex(x => x.EmailAddress);
+
+
+            // ForeignKey
+            builder.HasMany(email => email.EmailList)
+                .WithMany(emailList => emailList.Email)
+                .UsingEntity<EmailEmailList>(
+                    j => j.HasOne<EmailList>().WithMany().HasForeignKey(eel => eel.EmailListId),
+                    j => j.HasOne<Email>().WithMany().HasForeignKey(eel => eel.EmailId),
+                    j =>
+                    {
+                        j.HasKey(eel => new { eel.EmailId, eel.EmailListId });
+                        // j.ToTable("EmailEmailList");
+                    });
         }
     }
 }

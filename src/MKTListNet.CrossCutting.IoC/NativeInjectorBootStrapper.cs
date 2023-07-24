@@ -18,14 +18,17 @@ namespace MKTListNet.CrossCutting.IoC
             //services.AddScoped<IPagingResult<object>, PagingResult<object>>();
             services.AddScoped<IEmailRepository, EmailRepository>();
             services.AddScoped<IEmailListRepository, EmailListRepository>();
+            services.AddScoped<IEmailEmailListRepository, EmailEmailListRepository>();
 
             // Domain
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IEmailListService, EmailListService>();
+            services.AddScoped<IEmailEmailListService, EmailEmailListService>();
 
             // Application
             services.AddScoped<IEmailAppService, EmailAppService>();
             services.AddScoped<IEmailListAppService, EmailListAppService>();
+            services.AddScoped<IEmailEmailListAppServive, EmailEmailListAppService>();
         }
     }
 }

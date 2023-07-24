@@ -3,6 +3,7 @@ using System;
 using MKTListNet.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MKTListNet.Infra.Migrations
 {
     [DbContext(typeof(MKTListNetContext))]
-    partial class MKTListNetContextModelSnapshot : ModelSnapshot
+    [Migration("20230722151336_Add N to N Email_EmailList")]
+    partial class AddNtoNEmail_EmailList
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.7");

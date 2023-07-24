@@ -1,5 +1,4 @@
 ﻿using MKTListNet.Domain.Entities;
-using MKTListNet.Domain.Interface.Repository;
 using System.Linq.Expressions;
 
 namespace MKTListNet.Domain.Interface.Services
@@ -8,7 +7,7 @@ namespace MKTListNet.Domain.Interface.Services
     {
         Task<EmailList?> GetByIdAsync(int id);
 
-        int Add(EmailList email);
+        int Add(EmailList emailEmLst);
 
         //Task<IPagingResult<EmailList>?> GetAllPagingAsync(int pageSize = 50, int page = 1);
 

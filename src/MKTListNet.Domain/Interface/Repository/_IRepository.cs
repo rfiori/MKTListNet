@@ -10,6 +10,8 @@ namespace MKTListNet.Domain.Interface.Repository
 
         int Add(TEntity obj);
 
+        Task<int> AddBulkAsync(ICollection<TEntity> lstTEntity);
+
         Task<IPagingResult<TEntity>?> GetAllPagingAsync(int? pageSize, int? page);
 
         Task<IEnumerable<TEntity>?> GetAllAsync();

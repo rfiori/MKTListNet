@@ -35,10 +35,21 @@ namespace MKTListNet.Infra.Repository
             return SaveChanges();
         }
 
+        public async Task<int> AddBulkAsync(ICollection<TEntity> lstTEntity)
+        {
+            if (lstTEntity == null || lstTEntity.Count == 0)
+                return 0;
+
+            foreach (var item in lstTEntity)
+                await _DbSet.AddAsync(item);
+
+            return await _DBContext.SaveChangesAsync();
+        }
+
         public async Task<IPagingResult<TEntity>?> GetAllPagingAsync(int? pageSize, int? page)
         {
             var ret = await GetAllAsync();
-            return PagingData(ret, pageSize.Value, page.Value)!;
+            return PagingData(ret, pageSize!.Value, page!.Value)!;
         }
 
         public async Task<IEnumerable<TEntity>?> GetAllAsync()
@@ -49,7 +60,7 @@ namespace MKTListNet.Infra.Repository
         public IPagingResult<TEntity>? FindPaging(Expression<Func<TEntity, bool>> predicate, int? pageSize = 50, int? page = 1)
         {
             var ret = Find(predicate);
-            return PagingData(ret, pageSize.Value, page.Value);
+            return PagingData(ret, pageSize!.Value, page!.Value);
         }
 
         public IEnumerable<TEntity>? Find(Expression<Func<TEntity, bool>> predicate)
@@ -86,7 +97,7 @@ namespace MKTListNet.Infra.Repository
             var entry = _DBContext.Entry(obj);
             _DbSet.Attach(obj);
             entry.State = EntityState.Modified;
-            
+
             SaveChanges();
             return obj;
         }

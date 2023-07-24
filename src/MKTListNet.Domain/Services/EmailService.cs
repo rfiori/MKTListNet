@@ -1,8 +1,8 @@
 ﻿using MKTListNet.Domain.Entities;
 using MKTListNet.Domain.Interface.Repository;
 using MKTListNet.Domain.Interface.Services;
+using System.Collections.ObjectModel;
 using System.Linq.Expressions;
-using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 
 namespace MKTListNet.Domain.Services
@@ -10,12 +10,16 @@ namespace MKTListNet.Domain.Services
     public class EmailService : IEmailService
     {
         private readonly IEmailRepository _emailRepository;
+        private readonly IEmailListRepository _emailListRepository;
+        private readonly IEmailEmailListRepository _emailEmlLstRepository;
 
         //----------------------------------------------------------//
 
-        public EmailService(IEmailRepository emailRepository)
+        public EmailService(IEmailRepository emailRep, IEmailListRepository emailListRep, IEmailEmailListRepository emailEmlLstRep)
         {
-            _emailRepository = emailRepository;
+            _emailRepository = emailRep;
+            _emailListRepository = emailListRep;
+            _emailEmlLstRepository = emailEmlLstRep;
         }
 
         //----------------------------------------------------------//
@@ -29,7 +33,7 @@ namespace MKTListNet.Domain.Services
             return _emailRepository.Add(email);
         }
 
-        public async Task<int> AddBulkAsync(IList<string> lstEmail)
+        public async Task<int> AddBulkAsync(IList<string> lstEmail, int? listEmailId)
         {
             if (lstEmail == null || lstEmail.Count == 0)
                 return 0;
@@ -45,7 +49,24 @@ namespace MKTListNet.Domain.Services
                 lstEmailOk.Add(new Email { EmailAddress = email });
             }
 
-            return await _emailRepository.AddBulkAsync(lstEmailOk);
+            var ctAdd = await _emailRepository.AddBulkAsync(lstEmailOk);
+
+            if (lstEmail.Count > 0 && listEmailId != null && listEmailId > 0)
+            {
+                var emailEmlLst = new Collection<EmailEmailList>();
+                foreach (var e in lstEmail)
+                {
+                    var emailId = _emailRepository?.GetByEmail(e)?.Id;
+                    var emailInList = _emailEmlLstRepository.Find(x => x.EmailId == emailId);
+
+                    if (emailInList?.FirstOrDefault(x => x.EmailListId == listEmailId.Value) == null)
+                        emailEmlLst.Add(new EmailEmailList { EmailId = emailId!.Value, EmailListId = listEmailId.Value });
+                }
+
+                await _emailEmlLstRepository.AddBulkAsync(emailEmlLst);
+            }
+
+            return ctAdd;
         }
 
         private bool EmailExistente(string email)

@@ -34,7 +34,7 @@ namespace MKTListNet.Application.Services
 
         public async Task<EmailListViewModel?> GetByIdAsync(int id)
         {
-            return _mapper.Map<EmailListViewModel>(_emailListService.GetByIdAsync(id));
+            return _mapper.Map<EmailListViewModel>(await _emailListService.GetByIdAsync(id));
         }
 
         public IEnumerable<EmailListViewModel>? GetByListName(string listName)
@@ -50,12 +50,8 @@ namespace MKTListNet.Application.Services
         public EmailListViewModel? Update(EmailListViewModel emailList)
         {
             var emailListRet = _emailListService.Update(_mapper.Map<EmailList>(emailList));
-            //if (emailListRet != null)
-            //{
-            //    _emailListService.SaveChanges();
-            //}
             var retEL = _mapper.Map<EmailListViewModel?>(emailListRet);
-            return retEL;
+            return retEL!;
         }
 
 

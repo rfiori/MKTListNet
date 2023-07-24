@@ -44,12 +44,11 @@
                 <table class="table rounded">
                     <thead>
                         <tr class="bg-light">
-                            <th class="rounded" scope="row">
-                                <div class="col">Id</div>
-                            </th>
-                            <th class="rounded" scope="row">
+                            <th scope="col">Id</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">
                                 <div class="row justify-content-around">
-                                    <div class="col">Nome</div>
+                                    Tot. Emails
                                     <div class="col-auto ms-auto fw-light small"> Total: @Model?.EmailLists?.Count().ToString("N0")</div>
                                 </div>
                             </th>
@@ -59,12 +58,9 @@
                         @foreach (var item in Model?.EmailLists!)
                         {
                             <tr>
-                                <td>
-                                    @item.id
-                                </td>
-                                <td>
-                                    @item.Name
-                                </td>
+                                <td>@item.Id</td>
+                                <td>@item.Name</td>
+                                <td class="fw-light">@item.totalEmailCount.ToString("#,###,##0")</td>
                             </tr>
                         }
                     </tbody>

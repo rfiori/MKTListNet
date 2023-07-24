@@ -9,7 +9,7 @@ namespace MKTListNet.Application.Interface
 
         int Add(EmailViewModel emailVM);
 
-        Task<int> AddBulkAsync(IList<string> emailbulk);
+        Task<int> AddBulkAsync(IList<string> emailbulk, int? listEmailId);
 
         Task<IPagingResult<EmailViewModel>?> GetAllPagingAsync(int pageSize = 50, int page = 1);
 

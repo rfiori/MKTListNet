@@ -12,6 +12,6 @@ namespace MKTListNet.Application.ViewModel
         public string Name { get; set; } = null!;
 
         [MaxLength(10)]
-        public string Type { get; set; } = null!;
+        public string? Type { get; set; }
     }
 }

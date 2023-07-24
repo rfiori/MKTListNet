@@ -7,5 +7,8 @@
         public String? Name { get; set; }
 
         public string EmailAddress { get; set; } = null!;
+
+
+        public ICollection<EmailList> EmailList { get; set; }
     }
 }

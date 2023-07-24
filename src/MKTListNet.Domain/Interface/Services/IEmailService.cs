@@ -10,7 +10,7 @@ namespace MKTListNet.Domain.Interface.Services
 
         int Add(Email email);
 
-        Task<int> AddBulkAsync(IList<string> lstEmail);
+        Task<int> AddBulkAsync(IList<string> lstEmail, int? listEmailId);
 
         Task<IPagingResult<Email>?> GetAllPagingAsync(int pageSize = 50, int page = 1);
 

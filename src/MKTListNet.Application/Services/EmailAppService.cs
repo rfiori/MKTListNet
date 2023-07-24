@@ -29,9 +29,9 @@ namespace MKTListNet.Application.Services
             return _emailService.Add(email);
         }
 
-        public async Task<int> AddBulkAsync(IList<string> emailbulk)
+        public async Task<int> AddBulkAsync(IList<string> emailbulk, int? listEmailId)
         {
-            return await _emailService.AddBulkAsync(emailbulk);
+            return await _emailService.AddBulkAsync(emailbulk, listEmailId);
         }
 
         public IPagingResult<EmailViewModel>? GetEmails(string containsEmail, int pageSize = 50, int page = 1)
