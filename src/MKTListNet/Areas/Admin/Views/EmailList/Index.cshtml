@@ -41,14 +41,14 @@
         else
         {
             <div class="col-7 p-0">
-                <table class="table rounded">
+                <table class="table table-hover rounded">
                     <thead>
                         <tr class="bg-light">
                             <th scope="col">Id</th>
                             <th scope="col">Nome</th>
-                            <th scope="col">
+                            <th scope="col">Tot. Emails</th>
+                            <th>
                                 <div class="row justify-content-around">
-                                    Tot. Emails
                                     <div class="col-auto ms-auto fw-light small"> Total: @Model?.EmailLists?.Count().ToString("N0")</div>
                                 </div>
                             </th>
@@ -61,11 +61,19 @@
                                 <td>@item.Id</td>
                                 <td>@item.Name</td>
                                 <td class="fw-light">@item.totalEmailCount.ToString("#,###,##0")</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm bg-secondary bg-gradient bg-opacity-25" title="View emails"><i class="fa-solid fa-list"></i></button>
+                                    @if (item.Type != "SYS")
+                                    {
+
+                                        <button type="button" class="btn btn-sm bg-secondary bg-gradient bg-opacity-25" title="Edit"><i class="fa-regular fa-pen-to-square"></i></button>
+                                        <button type="button" class="btn btn-sm text-danger bg-secondary bg-gradient bg-opacity-25" title="Delete"><i class="fa-regular fa-trash-can"></i></button>
+                                    }
+                                </td>
                             </tr>
                         }
                     </tbody>
                 </table>
-
             </div>
         }
     </div>
