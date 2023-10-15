@@ -5,6 +5,8 @@ namespace MKTListNet.Infra.Repository
 {
     public class EmailListRepository : Repository<EmailList>, IEmailListRepository
     {
-        public EmailListRepository(MKTListNetContext dBContext) : base(dBContext) { }
+        public EmailListRepository(MKTListNetContext dBContext, IPagingRepository<EmailList> pagingRepository) : base(dBContext, pagingRepository)
+        {
+        }
     }
 }

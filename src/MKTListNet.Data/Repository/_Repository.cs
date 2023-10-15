@@ -8,13 +8,15 @@ namespace MKTListNet.Infra.Repository
     {
         protected readonly MKTListNetContext _DBContext;
         protected readonly DbSet<TEntity> _DbSet;
+        protected readonly IPagingRepository<TEntity> _PagingRepository;
 
         //----------------------------------------------------------//
 
-        public Repository(MKTListNetContext dBContext)
+        public Repository(MKTListNetContext dBContext, IPagingRepository<TEntity> pagingRepository)
         {
             _DBContext = dBContext;
             _DbSet = _DBContext.Set<TEntity>();
+            _PagingRepository = pagingRepository;
         }
 
         //----------------------------------------------------------//
@@ -49,44 +51,23 @@ namespace MKTListNet.Infra.Repository
         public async Task<IPagingResult<TEntity>?> GetAllPagingAsync(int? pageSize, int? page)
         {
             var ret = await GetAllAsync();
-            return PagingData(ret, pageSize!.Value, page!.Value)!;
+            return _PagingRepository.PagingData(ret, pageSize!.Value, page!.Value)!;
         }
 
         public async Task<IEnumerable<TEntity>?> GetAllAsync()
         {
-            return await _DbSet.AsNoTracking().ToListAsync();
+            return await _DbSet.ToListAsync();
         }
 
         public IPagingResult<TEntity>? FindPaging(Expression<Func<TEntity, bool>> predicate, int? pageSize = 50, int? page = 1)
         {
             var ret = Find(predicate);
-            return PagingData(ret, pageSize!.Value, page!.Value);
+            return _PagingRepository.PagingData(ret, pageSize!.Value, page!.Value);
         }
 
         public IEnumerable<TEntity>? Find(Expression<Func<TEntity, bool>> predicate)
         {
-            return _DbSet.AsNoTracking<TEntity>().Where(predicate).ToList();
-        }
-
-        private static IPagingResult<TEntity>? PagingData(IEnumerable<TEntity>? itemsPaging, int pageSize = 30, int page = 1)
-        {
-            if (itemsPaging == null || itemsPaging?.Count() < 1)
-                return null;
-
-            int TotalItems = itemsPaging!.Count();
-            int TotalPages = (int)Math.Ceiling((double)TotalItems / pageSize);
-
-            // Garantir que a página atual não exceda o número total de páginas
-            page = Math.Max(1, Math.Min(page, TotalPages));
-
-            // Calcular o índice de início e quantidade de itens a serem carregados
-            int StartIndex = (page - 1) * pageSize;
-            int ItemsToLoad = Math.Min(pageSize, TotalItems - StartIndex);
-
-            var ret2 = itemsPaging!.Skip(StartIndex).Take(ItemsToLoad);
-
-            // Criar um objeto de paginação customizado
-            return new PagingResult<TEntity>(ret2, page, pageSize, TotalItems, TotalPages);
+            return _DbSet.Where(predicate).ToList();
         }
 
         public TEntity? Update(TEntity obj)
