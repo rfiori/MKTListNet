@@ -9,6 +9,7 @@ namespace MKTListNet.Views.Shared
         internal readonly int PageSize;
         internal readonly bool ShowPageCount = true;
         internal readonly string ActionPage = "Index";
+        internal readonly string Search = "";
 
         /// <summary>
         /// Create a paging data to use in pagination component.
@@ -18,8 +19,9 @@ namespace MKTListNet.Views.Shared
         /// <param name="pgSize">Page size</param>
         /// <param name="showPageCount">Show page counter information</param>
         /// <param name="actionPage">The name of the action</param>
-        public PagingData(int pgNumber, int totalPg, int pgSize, string actionPage = "Index", bool showPageCount = true)
+        public PagingData(string search, int pgNumber, int totalPg, int pgSize, string actionPage = "Index", bool showPageCount = true)
         {
+            Search = string.IsNullOrEmpty(search) ? "" : search;
             ActionPage = actionPage;
             PageNumber = pgNumber;
             TotalPages = totalPg;
