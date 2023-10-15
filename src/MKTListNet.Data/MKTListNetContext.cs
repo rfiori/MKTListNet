@@ -20,6 +20,13 @@ namespace MKTListNet.Infra
             : base(options)
         { }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            // I'm using Proxy Lazy Loading in this project. But by default EF Core doesn't use it.
+            optionsBuilder.UseLazyLoadingProxies();
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -27,7 +34,6 @@ namespace MKTListNet.Infra
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
 
-            //builder.Entity("MKTListNet.Areas.Identity.Data.MKTListNetUser", b =>
             builder.Entity("MKTListNet.Infra.MKTListNetUser", b =>
             {
                 b.Property<string>("FullName")
