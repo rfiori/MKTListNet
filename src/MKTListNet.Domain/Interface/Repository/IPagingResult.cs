@@ -2,14 +2,14 @@
 {
     public interface IPagingResult<TEntity> where TEntity : class
     {
-        public IEnumerable<TEntity>? Items { get; }
+        IEnumerable<TEntity>? Items { get; }
 
-        public int PageNumber { get; }
+        int PageNumber { get; }
 
-        public int PageSize { get; }
+        int PageSize { get; }
 
-        public int TotalItems { get; }
+        int TotalItems { get; }
 
-        public int TotalPages { get; }
+        int TotalPages { get; }
     }
 }
