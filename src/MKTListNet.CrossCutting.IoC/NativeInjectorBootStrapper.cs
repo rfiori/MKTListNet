@@ -13,14 +13,15 @@ namespace MKTListNet.CrossCutting.IoC
     {
         public static void RegisterServices(IServiceCollection services)
         {
-            // Infra - Data
+            // Infra - Data - Repository
             services.AddScoped<MKTListNetContext>();
             //services.AddScoped<IPagingResult<object>, PagingResult<object>>();
+            services.AddScoped(typeof(IPagingRepository<>), typeof(PagingRepository<>));
             services.AddScoped<IEmailRepository, EmailRepository>();
             services.AddScoped<IEmailListRepository, EmailListRepository>();
             services.AddScoped<IEmailEmailListRepository, EmailEmailListRepository>();
 
-            // Domain
+            // Service
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IEmailListService, EmailListService>();
             services.AddScoped<IEmailEmailListService, EmailEmailListService>();
