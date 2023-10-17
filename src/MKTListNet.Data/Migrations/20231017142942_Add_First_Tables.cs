@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -7,7 +8,7 @@
 namespace MKTListNet.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class AddEmailEmailList : Migration
+    public partial class Add_First_Tables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,7 +17,7 @@ namespace MKTListNet.Infra.Migrations
                 name: "Email",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "varchar(50)", nullable: false),
                     Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     EmailAddress = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false)
                 },
@@ -39,6 +40,30 @@ namespace MKTListNet.Infra.Migrations
                     table.PrimaryKey("PK_EmailList", x => x.Id);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "EmailEmailList",
+                columns: table => new
+                {
+                    EmailId = table.Column<Guid>(type: "varchar(50)", nullable: false),
+                    EmailListId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmailEmailList", x => new { x.EmailId, x.EmailListId });
+                    table.ForeignKey(
+                        name: "FK_EmailEmailList_EmailList_EmailListId",
+                        column: x => x.EmailListId,
+                        principalTable: "EmailList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EmailEmailList_Email_EmailId",
+                        column: x => x.EmailId,
+                        principalTable: "Email",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "EmailList",
                 columns: new[] { "Id", "Name", "Type" },
@@ -53,16 +78,24 @@ namespace MKTListNet.Infra.Migrations
                 name: "IX_Email_EmailAddress",
                 table: "Email",
                 column: "EmailAddress");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmailEmailList_EmailListId",
+                table: "EmailEmailList",
+                column: "EmailListId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Email");
+                name: "EmailEmailList");
 
             migrationBuilder.DropTable(
                 name: "EmailList");
+
+            migrationBuilder.DropTable(
+                name: "Email");
         }
     }
 }

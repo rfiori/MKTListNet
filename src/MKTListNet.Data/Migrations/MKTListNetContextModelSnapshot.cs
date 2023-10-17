@@ -15,28 +15,13 @@ namespace MKTListNet.Infra.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.7");
-
-            modelBuilder.Entity("EmailEmailList", b =>
-                {
-                    b.Property<Guid>("EmailId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("EmailListId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("EmailId", "EmailListId");
-
-                    b.HasIndex("EmailListId");
-
-                    b.ToTable("EmailEmailList");
-                });
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.12");
 
             modelBuilder.Entity("MKTListNet.Domain.Entities.Email", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
@@ -52,6 +37,21 @@ namespace MKTListNet.Infra.Migrations
                     b.HasIndex("EmailAddress");
 
                     b.ToTable("Email", (string)null);
+                });
+
+            modelBuilder.Entity("MKTListNet.Domain.Entities.EmailEmailList", b =>
+                {
+                    b.Property<Guid>("EmailId")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<int>("EmailListId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("EmailId", "EmailListId");
+
+                    b.HasIndex("EmailListId");
+
+                    b.ToTable("EmailEmailList", (string)null);
                 });
 
             modelBuilder.Entity("MKTListNet.Domain.Entities.EmailList", b =>
@@ -299,7 +299,7 @@ namespace MKTListNet.Infra.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("EmailEmailList", b =>
+            modelBuilder.Entity("MKTListNet.Domain.Entities.EmailEmailList", b =>
                 {
                     b.HasOne("MKTListNet.Domain.Entities.Email", null)
                         .WithMany()
