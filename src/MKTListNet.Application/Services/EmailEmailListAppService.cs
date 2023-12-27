@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using MKTListNet.Application.AppViewModel;
 using MKTListNet.Application.Interface;
-using MKTListNet.Application.ViewModwl;
 using MKTListNet.Domain.Entities;
 using MKTListNet.Domain.Interface.Services;
 

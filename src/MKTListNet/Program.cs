@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("MKTListNetContextConn");
 
 builder.Services.AddDbContext<MKTListNetContext>(options =>
-    options. UseSqlite(connectionString));
+    options.UseSqlite(connectionString));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -29,6 +29,7 @@ builder.Services.AutoMapperConfiguration();
 builder.Services.AddDependencyInjectionConfiguration();
 
 builder.Services.AddMvc();
+
 //bundling and minification of CSS and JavaScript
 builder.Services.AddWebOptimizer();
 

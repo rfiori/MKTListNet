@@ -1,4 +1,4 @@
-﻿using MKTListNet.Application.ViewModel;
+﻿using MKTListNet.Application.AppViewModel;
 using MKTListNet.Domain.Interface.Repository;
 
 namespace MKTListNet.Application.Interface
@@ -13,9 +13,12 @@ namespace MKTListNet.Application.Interface
 
         Task<IPagingResult<EmailViewModel>?> GetAllPagingAsync(int pageSize = 50, int page = 1);
 
+        [Obsolete("Use new method GetAllPagingAsync()")]
         Task<IEnumerable<EmailViewModel>?> GetAllAsync();
 
-        IPagingResult<EmailViewModel>? GetEmails(string ContainsEmail, int pageSize = 100, int page = 1);
+        IPagingResult<EmailViewModel>? GetEmails(string ContainsEmail, int emailListId, int pageSize = 100, int page = 1);
+
+        Task<IEnumerable<EmailListViewModel>?> GetEmailListAsync(EmailViewModel emailVM);
 
         EmailViewModel Updeate(EmailViewModel emailVM);
 

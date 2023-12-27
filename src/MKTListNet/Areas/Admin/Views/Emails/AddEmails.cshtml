@@ -41,12 +41,15 @@
 
                         <div class="col pb-5">
                             <div class="input-group">
-                                <label class="input-group-text" for="select01">Enviar para a lista</label>
+                                <label class="input-group-text" for="select01">Adicionar na lista</label>
                                 <select class="form-select" aria-label="" name="idList" id="select01">
                                     <option selected></option>
                                     @foreach (var item in Model?.EmailLists!)
                                     {
-                                        <option value="@item.Id">@item.Name (@item.totalEmailCount)</option>
+                                        if (item.EmailList.Id != 1)
+                                        {
+                                            <option value="@item.EmailList.Id">@item.EmailList.Name (@item.TotalEmailCount)</option>
+                                        }
                                     }
                                 </select>
                             </div>

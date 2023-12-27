@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MKTListNet.Application.AppViewModel;
 using MKTListNet.Application.Interface;
-using MKTListNet.Application.ViewModel;
 using MKTListNet.Areas.Admin.Models;
-using MKTListNet.Domain.Interface.Repository;
+using NUglify.Helpers;
 using System.Collections.ObjectModel;
 
 namespace MKTListNet.Areas.Admin.Controllers
@@ -24,32 +24,47 @@ namespace MKTListNet.Areas.Admin.Controllers
         }
 
 
-        public async Task<IActionResult> Index(string? search, int pageSize, int page)
+        public IActionResult Index(string? search, int pageSize = 100, int page = 1, int codEmailList = 1)
         {
-            IPagingResult<EmailViewModel>? lstEmail;
+            var retLstEmail = new EmailModel();
+
+            _emailListAppService.GetAllAsync().Result.ForEach(
+                    x => retLstEmail?.EmailListDM.Add(
+                    new EmailListDataModel()
+                    {
+                        EmailList = x
+                    })
+                );
+            retLstEmail.EmailListSelected = codEmailList;
 
             if (!string.IsNullOrEmpty(search) && search.Length > 2)
             {
-                ViewBag.Search = search;
-                lstEmail = _emailAppService.GetEmails(search.ToLower(), pageSize, page);
-                return View(lstEmail);
+                retLstEmail.SearchData = search;
+                retLstEmail.PagingReult = _emailAppService.GetEmails(search.ToLower(), codEmailList, pageSize, page);
+                return View(retLstEmail);
             }
 
-            lstEmail = await _emailAppService.GetAllPagingAsync(100, page);
-            return View(lstEmail);
+            retLstEmail.PagingReult = _emailAppService.GetEmails("", codEmailList, 100, page);
+            return View(retLstEmail);
         }
 
 
-        internal IEnumerable<EmailListDataModel>? ConvertToListDataModel(IEnumerable<EmailListViewModel>? lst)
+        internal IEnumerable<EmailListDataModel>? NewEmailListDataModel()
         {
+            var lst = _emailListAppService.GetAllAsync().Result;
+
             if (lst == null)
                 return null;
 
             var ret = new Collection<EmailListDataModel>();
             foreach (var i in lst)
             {
-                var t = _emailEmlLstAppServive.GetByEmailListId(i.id)!.Count();
-                ret.Add(new EmailListDataModel { Id = i.id, Name = i.Name, Type = i.Type, totalEmailCount = t });
+                var t = _emailEmlLstAppServive.GetByEmailListId(i.Id)!.Count();
+                ret.Add(new EmailListDataModel
+                {
+                    EmailList = new EmailListViewModel { Id = i.Id, Name = i.Name, Type = i.Type },
+                    TotalEmailCount = t
+                });
             }
 
             return ret;
@@ -63,14 +78,14 @@ namespace MKTListNet.Areas.Admin.Controllers
             if (emails != null)
                 ViewBag.lstEmails = emails;
 
-            var model = new EmailListModel() { EmailLists = ConvertToListDataModel(_emailListAppService.GetAllAsync().Result) };
+            var model = new EmailListModel() { EmailLists = NewEmailListDataModel() };
 
             return View("AddEmails", model);
         }
 
         public IActionResult AddEmails()
         {
-            var model = new EmailListModel() { EmailLists = ConvertToListDataModel(_emailListAppService.GetAllAsync().Result) };
+            var model = new EmailListModel() { EmailLists = NewEmailListDataModel() };
             return View(model);
         }
 

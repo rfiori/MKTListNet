@@ -66,6 +66,11 @@ namespace MKTListNet.Domain.Services
             return await _emailListRepository.GetByIdAsync(id);
         }
 
+        public async Task<IEnumerable<Email>?> GetEmailsAsync(EmailList emailLst, string? filter)
+        {
+            return await _emailListRepository.GetEmailsAsync(emailLst, filter);
+        }
+
         public EmailList? Update(EmailList email)
         {
             return _emailListRepository.Update(email);

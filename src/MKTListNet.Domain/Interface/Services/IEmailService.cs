@@ -18,6 +18,8 @@ namespace MKTListNet.Domain.Interface.Services
 
         IPagingResult<Email>? GetEmails(string containsEmail, int emailListId, int pageSize = 100, int page = 1);
 
+        Task<IEnumerable<EmailList>?> GetEmailListAsync(Email email);
+
         IEnumerable<Email>? Find(Expression<Func<Email, bool>> predicate);
 
         Email? Update(Email email);

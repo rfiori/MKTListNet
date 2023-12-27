@@ -17,6 +17,8 @@ namespace MKTListNet.Domain.Interface.Services
 
         IEnumerable<EmailList>? GetByListName(string listName);
 
+        Task<IEnumerable<Email>?> GetEmailsAsync(EmailList emailLst, string? filter);
+
         IEnumerable<EmailList>? Find(Expression<Func<EmailList, bool>> predicate);
 
         EmailList? Update(EmailList email);

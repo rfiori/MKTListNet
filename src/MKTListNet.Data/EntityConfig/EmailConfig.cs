@@ -12,6 +12,9 @@ namespace MKTListNet.Infra.EntityConfig
 
             builder.HasKey(x => x.Id);
 
+            builder.Property(x => x.Id)
+                .HasColumnType("varchar(50)");
+
             builder.Property(x => x.Name)
                 .HasColumnType("varchar(50)")
                 .HasMaxLength(50);
@@ -26,7 +29,7 @@ namespace MKTListNet.Infra.EntityConfig
 
             // ForeignKey
             builder.HasMany(email => email.EmailList)
-                .WithMany(emailList => emailList.Email)
+                .WithMany(emailList => emailList.Emails)
                 .UsingEntity<EmailEmailList>(
                     j => j.HasOne<EmailList>().WithMany().HasForeignKey(eel => eel.EmailListId),
                     j => j.HasOne<Email>().WithMany().HasForeignKey(eel => eel.EmailId),

@@ -9,6 +9,6 @@
         public string EmailAddress { get; set; } = null!;
 
 
-        public ICollection<EmailList>? EmailList { get; set; }
+        public virtual ICollection<EmailList>? EmailList { get; set; }
     }
 }

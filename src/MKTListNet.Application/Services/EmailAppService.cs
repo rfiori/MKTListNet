@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using MKTListNet.Application.AppViewModel;
 using MKTListNet.Application.Interface;
-using MKTListNet.Application.ViewModel;
 using MKTListNet.Domain.Entities;
 using MKTListNet.Domain.Interface.Repository;
 using MKTListNet.Domain.Interface.Services;
@@ -34,9 +34,9 @@ namespace MKTListNet.Application.Services
             return await _emailService.AddBulkAsync(emailbulk, listEmailId);
         }
 
-        public IPagingResult<EmailViewModel>? GetEmails(string containsEmail, int pageSize = 50, int page = 1)
+        public IPagingResult<EmailViewModel>? GetEmails(string containsEmail, int emailListId, int pageSize = 50, int page = 1)
         {
-            return _mapper.Map<PagingResult<EmailViewModel>?>(_emailService.GetEmails(containsEmail, pageSize, page));
+            return _mapper.Map<PagingResult<EmailViewModel>?>(_emailService.GetEmails(containsEmail, emailListId, pageSize, page));
         }
 
         public async Task<IPagingResult<EmailViewModel>?> GetAllPagingAsync(int pageSize = 50, int page = 1)
@@ -44,6 +44,7 @@ namespace MKTListNet.Application.Services
             return _mapper.Map<PagingResult<EmailViewModel>?>(await _emailService.GetAllPagingAsync(pageSize, page));
         }
 
+        [Obsolete("Use new method GetAllPagingAsync()")]
         public async Task<IEnumerable<EmailViewModel>?> GetAllAsync()
         {
             return _mapper.Map<IEnumerable<EmailViewModel>?>(await _emailService.GetAllAsync());
@@ -57,6 +58,11 @@ namespace MKTListNet.Application.Services
         public async Task<EmailViewModel?> GetByIdAsync(Guid id)
         {
             return _mapper.Map<EmailViewModel>(await _emailService.GetByIdAsync(id));
+        }
+
+        public async Task<IEnumerable<EmailListViewModel>?> GetEmailListAsync(EmailViewModel emailVM)
+        {
+            return _mapper.Map<IEnumerable<EmailListViewModel>>(await _emailService.GetEmailListAsync(_mapper.Map<Email>(emailVM)));
         }
 
         public EmailViewModel Updeate(EmailViewModel retE)

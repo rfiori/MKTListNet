@@ -1,4 +1,4 @@
-﻿using MKTListNet.Application.ViewModwl;
+﻿using MKTListNet.Application.AppViewModel;
 
 namespace MKTListNet.Application.Interface
 {

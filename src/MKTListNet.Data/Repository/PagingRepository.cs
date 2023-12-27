@@ -1,4 +1,6 @@
-﻿using MKTListNet.Domain.Interface.Repository;
+﻿using Microsoft.EntityFrameworkCore;
+using MKTListNet.Domain.Interface.Repository;
+using System.Linq.Expressions;
 
 namespace MKTListNet.Infra.Repository
 {
@@ -23,6 +25,29 @@ namespace MKTListNet.Infra.Repository
 
             // Criar um objeto de paginação customizado
             return new PagingResult<TEntity>(ret2, page, pageSize, TotalItems, TotalPages);
+        }
+
+        public IPagingResult<TEntity>? PagingData(dynamic dbSet, int pageSize = 100, int page = 1, Expression<Func<TEntity, bool>>? predicate = null)
+        {
+            var DbSetObj = dbSet as DbSet<TEntity>;
+
+            int skip = (page - 1) * pageSize;
+
+            IQueryable<TEntity>? ret;
+
+            if (predicate != null)
+                ret = DbSetObj?.Where(predicate).Skip(skip).Take(pageSize);
+            else
+                ret = DbSetObj?.Skip(skip).Take(pageSize);
+
+            if (ret != null)
+                return null;
+
+            int totalItems = ret!.Count();
+            int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            // Criar um objeto de paginação customizado
+            return new PagingResult<TEntity>(ret!.ToList(), page, pageSize, totalItems, totalPages);
         }
     }
 }

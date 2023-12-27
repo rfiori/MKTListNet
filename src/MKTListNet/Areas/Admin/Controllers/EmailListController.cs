@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MKTListNet.Application.AppViewModel;
 using MKTListNet.Application.Interface;
-using MKTListNet.Application.ViewModel;
 using MKTListNet.Areas.Admin.Models;
 using System.Collections.ObjectModel;
-using System.Security.AccessControl;
 
 namespace MKTListNet.Areas.Admin.Controllers
 {
@@ -49,8 +48,12 @@ namespace MKTListNet.Areas.Admin.Controllers
             var ret = new Collection<EmailListDataModel>();
             foreach (var i in lst)
             {
-                var t = _emailEmlLstAppServive.GetByEmailListId(i.id)!.Count();
-                ret.Add(new EmailListDataModel { Id = i.id, Name = i.Name, Type = i.Type, totalEmailCount = t });
+                var t = _emailEmlLstAppServive.GetByEmailListId(i.Id)!.Count();
+                ret.Add(new EmailListDataModel
+                {
+                    EmailList = new EmailListViewModel { Id = i.Id, Name = i.Name, Type = i.Type },
+                    TotalEmailCount = t
+                });
             }
 
             return ret;

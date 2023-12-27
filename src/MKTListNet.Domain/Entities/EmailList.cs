@@ -9,6 +9,6 @@
         public string? Type { get; set; }
 
 
-        public ICollection<Email> Email { get; set; }
+        public virtual ICollection<Email> Emails { get; set; } = null!;
     }
 }

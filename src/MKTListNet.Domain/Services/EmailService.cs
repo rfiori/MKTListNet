@@ -1,7 +1,6 @@
 ﻿using MKTListNet.Domain.Entities;
 using MKTListNet.Domain.Interface.Repository;
 using MKTListNet.Domain.Interface.Services;
-using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 
@@ -38,34 +37,64 @@ namespace MKTListNet.Domain.Services
             if (lstEmail == null || lstEmail.Count == 0)
                 return 0;
 
+            int ctAdd = 0;
             var lstEmailOk = new List<Email>();
-
+            var generalList = await _emailListRepository.GetByIdAsync(1);
+            EmailList? emlList = null;
+            if (listEmailId != null && listEmailId > 0)
+                emlList = await _emailListRepository.GetByIdAsync(listEmailId.Value);
+            // Verificacoes para a GeneralList
             foreach (var item in lstEmail)
             {
                 var email = item.Trim().ToLower();
+                // Verifica se o email já existe no BD / GeneralList.
                 if (!IsEmailValid(email) || EmailExistente(email))
                     continue;
 
-                lstEmailOk.Add(new Email { EmailAddress = email });
+                // Verifica se o email está duplicado na lista enviada.
+                if (lstEmailOk.FirstOrDefault(x => x.EmailAddress == item) != null)
+                    continue;
+
+                var em = new Email { EmailAddress = email };
+                //if (em?.EmailList == null || em?.EmailList.FirstOrDefault(x => x.Id == 1) == null)
+                //{
+                em.EmailList = new List<EmailList>();
+                em.EmailList.Add(generalList!); // adiciona em GeneralList
+                if (emlList != null && listEmailId != null && listEmailId > 0)
+                    em.EmailList.Add(emlList);
+
+                //_emailRepository.Update(em!);
+                //}
+
+                lstEmailOk.Add(em);
             }
 
-            var ctAdd = await _emailRepository.AddBulkAsync(lstEmailOk);
-
-            if (lstEmail.Count > 0 && listEmailId != null && listEmailId > 0)
+            if (lstEmailOk.Count > 0)
+                ctAdd = await _emailRepository.AddBulkAsync(lstEmailOk);
+            // Faz a inclusão de emails ja existentes e adicionados em outra lista.
+            if (lstEmail.Count > 0)
             {
-                var emailEmlLst = new Collection<EmailEmailList>();
-                foreach (var e in lstEmail)
+                emlList = await _emailListRepository.GetByIdAsync(listEmailId!.Value);
+                foreach (var item in lstEmail)
                 {
-                    var emailId = _emailRepository?.GetByEmail(e)?.Id;
-                    var emailInList = _emailEmlLstRepository.Find(x => x.EmailId == emailId);
+                    if (listEmailId != null && listEmailId > 0)
+                    {
+                        //var emailEmlLst = new Collection<EmailEmailList>();
+                        var em = _emailRepository.GetByEmail(item);
 
-                    if (emailInList?.FirstOrDefault(x => x.EmailListId == listEmailId.Value) == null)
-                        emailEmlLst.Add(new EmailEmailList { EmailId = emailId!.Value, EmailListId = listEmailId.Value });
+                        em!.EmailList = await _emailRepository.GetEmailListAsync(em);
+
+                        if (em?.EmailList is null)
+                            em!.EmailList = new List<EmailList>();
+
+                        if (em?.EmailList?.FirstOrDefault(x => x.Id == listEmailId) == null)
+                        {
+                            em?.EmailList?.Add(emlList!);
+                            _emailRepository.Update(em!);
+                        }
+                    }
                 }
-
-                await _emailEmlLstRepository.AddBulkAsync(emailEmlLst);
             }
-
             return ctAdd;
         }
 
@@ -74,22 +103,20 @@ namespace MKTListNet.Domain.Services
             return string.IsNullOrEmpty(email) || GetByEmail(email) != null;
         }
 
-        private bool IsEmailValid(string email)
+        private static bool IsEmailValid(string email)
         {
-            string pattern = @"^[^\s@]+@[^\s@]+\.[^\s@]+$";
+            const string pattern = @"^[^\s@]+@[^\s@]+\.[^\s@]+$";
             return Regex.IsMatch(email, pattern);
         }
 
-        public IPagingResult<Email>? GetEmails(string containsEmail, int pageSize = 100, int page = 1)
+        public IPagingResult<Email>? GetEmails(string containsEmail, int emailListId = 1, int pageSize = 100, int page = 1)
         {
-            pageSize = pageSize == 0 ? 100 : pageSize;
-            page = page == 0 ? 1 : page;
-            return _emailRepository.FindPaging(em => em.EmailAddress.Contains(containsEmail), pageSize, page);
-        }
-
-        public IEnumerable<Email>? Find(Expression<Func<Email, bool>> predicate)
-        {
-            return _emailRepository.Find(predicate);
+            // Get EmailList obj.
+            var emlist = _emailListRepository.GetByIdAsync(emailListId).Result;
+            // Get all emails for EmailList.
+            var emLst = _emailListRepository.GetEmailsAsync(emlist!, containsEmail).Result;
+            // Return Emails list paging.
+            return _emailRepository.PagingData(emLst, pageSize, page);
         }
 
         public async Task<IPagingResult<Email>?> GetAllPagingAsync(int pageSize = 50, int page = 1)
@@ -99,6 +126,7 @@ namespace MKTListNet.Domain.Services
             return await _emailRepository.GetAllPagingAsync(pageSize, page);
         }
 
+        [Obsolete("Use new method GetAllPagingAsync()")]
         public async Task<IEnumerable<Email>?> GetAllAsync()
         {
             return await _emailRepository.GetAllAsync();
@@ -107,6 +135,16 @@ namespace MKTListNet.Domain.Services
         public Email? GetByEmail(string email)
         {
             return _emailRepository.GetByEmail(email);
+        }
+
+        public async Task<IEnumerable<EmailList>?> GetEmailListAsync(Email email)
+        {
+            return await _emailRepository.GetEmailListAsync(email);
+        }
+
+        public IEnumerable<Email>? Find(Expression<Func<Email, bool>> predicate)
+        {
+            return _emailRepository.Find(predicate);
         }
 
         public async Task<Email?> GetByIdAsync(Guid id)

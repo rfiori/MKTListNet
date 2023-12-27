@@ -11,6 +11,9 @@ namespace MKTListNet.Infra.EntityConfig
             builder.ToTable("EmailEmailList");
 
             builder.HasKey(x => new { x.EmailId, x.EmailListId });
+
+            builder.Property(x => x.EmailId)
+                .HasColumnType("varchar(50)");
         }
     }
 }

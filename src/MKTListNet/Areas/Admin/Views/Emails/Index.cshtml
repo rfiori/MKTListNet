@@ -1,8 +1,10 @@
-﻿@using MKTListNet.Application.ViewModel;
+﻿@using MKTListNet.Application.AppViewModel;
+@using MKTListNet.Areas.Admin.Models;
 @using MKTListNet.Domain.Interface.Repository;
 @using MKTListNet.Views.Shared;
 
-@model IPagingResult<EmailViewModel>?
+@*@model IPagingResult<EmailViewModel>?*@
+@model EmailModel?
 @{
 }
 
@@ -14,9 +16,24 @@
         </div>
 
         <div class="col">
-            <form action="Emails">
+            <form id="frmSearch" action="Emails">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="search" placeholder="Search" autocomplete="off" value="@ViewBag.Search" autofocus aria-label="Search" aria-describedby="Search email">
+                    <select class="form-select" name="codEmailList" onchange="document.forms.frmSearch.submit()">
+                        @foreach (var i in Model?.EmailListDM!)
+                        {
+                            if (Model.EmailListSelected == i.EmailList.Id)
+                            {
+                                <option selected value="@i.EmailList.Id">@i.EmailList.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@i.EmailList.Id">@i.EmailList.Name</option>
+                            }
+                        }
+                    </select>
+                    &ensp;
+                    <input type="text" class="form-control" name="search" placeholder="Search" autocomplete="off" value="@Model.SearchData" autofocus aria-label="Search" aria-describedby="Search email">
+
                     <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </form>
@@ -36,7 +53,7 @@
     </div>
 
     <div class="row mx-2 mt-2 align-items-center">
-        @if (Model == null || Model.Items == null || Model.Items.Count() < 1)
+        @if (Model == null || Model?.PagingReult?.Items == null || Model?.PagingReult?.Items.Count() < 1)
         {
             <p class="h4 p-4">Não existem emails cadastrados!</p>
         }
@@ -51,14 +68,14 @@
                             </th>
                             <th class="rounded" scope="row">
                                 <div class="row justify-content-around">
-                                    <div class="col">Emails (@Model?.Items?.Count().ToString("N0"))</div>
-                                    <div class="col-auto ms-auto fw-light small"> Total: @Model?.TotalItems.ToString("N0")</div>
+                                    <div class="col">Emails (@Model?.PagingReult.Items?.Count().ToString("N0"))</div>
+                                    <div class="col-auto ms-auto fw-light small"> Total: @Model?.PagingReult.TotalItems.ToString("N0")</div>
                                 </div>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model!.Items)
+                        @foreach (var item in Model!.PagingReult.Items)
                         {
                             <tr>
                                 <td>
@@ -73,7 +90,7 @@
                 </table>
 
                 @{
-                    var dataPg = new PagingData(Model.PageNumber, Model.TotalPages, Model.TotalPages, "Index");
+                    var dataPg = new PagingData(Model.SearchData!, Model.PagingReult.PageNumber, Model.PagingReult.TotalPages, Model.PagingReult.TotalPages, "Index");
                     <partial name="PaginationComp" model="dataPg" />
                 }
             </div>

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using MKTListNet.Application.AppViewModel;
 using MKTListNet.Application.Interface;
-using MKTListNet.Application.ViewModel;
 using MKTListNet.Domain.Entities;
 using MKTListNet.Domain.Interface.Services;
 
@@ -40,6 +40,15 @@ namespace MKTListNet.Application.Services
         public IEnumerable<EmailListViewModel>? GetByListName(string listName)
         {
             return _mapper.Map<IEnumerable<EmailListViewModel>?>(_emailListService.GetByListName(listName));
+        }
+
+        public async Task<IEnumerable<EmailListViewModel>?> GetEmailsAsync(EmailListViewModel emailLstVM, string? filter)
+        {
+            return _mapper.Map<IEnumerable<EmailListViewModel>>(
+                await _emailListService.GetEmailsAsync(
+                        _mapper.Map<EmailList>(emailLstVM),
+                        filter)
+                );
         }
 
         public int Remove(int id)

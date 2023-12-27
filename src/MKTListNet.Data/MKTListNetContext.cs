@@ -23,8 +23,6 @@ namespace MKTListNet.Infra
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            // I'm using Proxy Lazy Loading in this project. But by default EF Core doesn't use it.
-            optionsBuilder.UseLazyLoadingProxies();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

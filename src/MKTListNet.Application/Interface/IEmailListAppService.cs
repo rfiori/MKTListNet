@@ -1,4 +1,4 @@
-﻿using MKTListNet.Application.ViewModel;
+﻿using MKTListNet.Application.AppViewModel;
 
 namespace MKTListNet.Application.Interface
 {
@@ -15,6 +15,8 @@ namespace MKTListNet.Application.Interface
         //IPagingResult<EmailList>? GeByName(string containsListName, int pageSize = 100, int page = 1);
 
         IEnumerable<EmailListViewModel>? GetByListName(string listName);
+
+        Task<IEnumerable<EmailListViewModel>?> GetEmailsAsync(EmailListViewModel emailLstVM, string? filter);
 
         EmailListViewModel? Update(EmailListViewModel emailList);
 

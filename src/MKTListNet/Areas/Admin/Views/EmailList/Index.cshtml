@@ -58,12 +58,12 @@
                         @foreach (var item in Model?.EmailLists!)
                         {
                             <tr>
-                                <td>@item.Id</td>
-                                <td>@item.Name</td>
-                                <td class="fw-light">@item.totalEmailCount.ToString("#,###,##0")</td>
+                                <td>@item.EmailList.Id</td>
+                                <td>@item.EmailList.Name</td>
+                                <td class="fw-light">@item.TotalEmailCount.ToString("#,###,##0")</td>
                                 <td>
                                     <button type="button" class="btn btn-sm bg-secondary bg-gradient bg-opacity-25" title="View emails"><i class="fa-solid fa-list"></i></button>
-                                    @if (item.Type != "SYS")
+                                    @if (item.EmailList.Type != "SYS")
                                     {
 
                                         <button type="button" class="btn btn-sm bg-secondary bg-gradient bg-opacity-25" title="Edit"><i class="fa-regular fa-pen-to-square"></i></button>

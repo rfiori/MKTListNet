@@ -48,21 +48,23 @@ namespace MKTListNet.Infra.Repository
             return await _DBContext.SaveChangesAsync();
         }
 
-        public async Task<IPagingResult<TEntity>?> GetAllPagingAsync(int? pageSize, int? page)
+        public Task<IPagingResult<TEntity>?> GetAllPagingAsync(int? pageSize = 100, int? page = 1)
         {
-            var ret = await GetAllAsync();
-            return _PagingRepository.PagingData(ret, pageSize!.Value, page!.Value)!;
+            //var ret = await GetAllAsync();
+            return Task.FromResult(_PagingRepository.PagingData(_DbSet, pageSize!.Value, page!.Value));
         }
 
+        [Obsolete("Use new method GetAllPagingAsync()")]
         public async Task<IEnumerable<TEntity>?> GetAllAsync()
         {
             return await _DbSet.ToListAsync();
         }
 
-        public IPagingResult<TEntity>? FindPaging(Expression<Func<TEntity, bool>> predicate, int? pageSize = 50, int? page = 1)
+        public IPagingResult<TEntity>? FindPaging(Expression<Func<TEntity, bool>> predicate, int pageSize = 100, int page = 1)
         {
-            var ret = Find(predicate);
-            return _PagingRepository.PagingData(ret, pageSize!.Value, page!.Value);
+            return _PagingRepository.PagingData(_DbSet, pageSize, page, predicate);
+            //var ret = Find(predicate);
+            //return _PagingRepository.PagingData(ret, pageSize!.Value, page!.Value);
         }
 
         public IEnumerable<TEntity>? Find(Expression<Func<TEntity, bool>> predicate)
