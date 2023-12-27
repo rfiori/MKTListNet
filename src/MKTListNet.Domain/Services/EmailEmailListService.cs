@@ -1,6 +1,6 @@
 ﻿using MKTListNet.Domain.Entities;
-using MKTListNet.Domain.Interface.Repository;
-using MKTListNet.Domain.Interface.Services;
+using MKTListNet.Domain.Interfaces.Repository;
+using MKTListNet.Domain.Interfaces.Services;
 using System.Collections.ObjectModel;
 
 namespace MKTListNet.Domain.Services

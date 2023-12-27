@@ -1,4 +1,4 @@
-﻿namespace MKTListNet.Domain.Interface.Repository
+﻿namespace MKTListNet.Domain.Interfaces.Repository
 {
     public interface IPagingResult<TEntity> where TEntity : class
     {

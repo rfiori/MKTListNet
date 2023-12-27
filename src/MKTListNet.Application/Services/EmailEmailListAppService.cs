@@ -2,7 +2,7 @@
 using MKTListNet.Application.AppViewModel;
 using MKTListNet.Application.Interface;
 using MKTListNet.Domain.Entities;
-using MKTListNet.Domain.Interface.Services;
+using MKTListNet.Domain.Interfaces.Services;
 
 namespace MKTListNet.Application.Services
 {

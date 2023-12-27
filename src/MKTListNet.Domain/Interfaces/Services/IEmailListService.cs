@@ -1,7 +1,7 @@
 ﻿using MKTListNet.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace MKTListNet.Domain.Interface.Services
+namespace MKTListNet.Domain.Interfaces.Services
 {
     public interface IEmailListService : IDisposable
     {

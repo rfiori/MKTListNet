@@ -1,5 +1,5 @@
 ﻿using MKTListNet.Application.AppViewModel;
-using MKTListNet.Domain.Interface.Repository;
+using MKTListNet.Domain.Interfaces.Repository;
 using System.Collections.ObjectModel;
 
 namespace MKTListNet.Areas.Admin.Models

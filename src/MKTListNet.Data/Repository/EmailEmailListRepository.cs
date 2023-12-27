@@ -1,5 +1,5 @@
 ﻿using MKTListNet.Domain.Entities;
-using MKTListNet.Domain.Interface.Repository;
+using MKTListNet.Domain.Interfaces.Repository;
 
 namespace MKTListNet.Infra.Repository
 {

@@ -1,5 +1,5 @@
 ﻿using MKTListNet.Domain.Entities;
-using MKTListNet.Domain.Interface.Repository;
+using MKTListNet.Domain.Interfaces.Repository;
 using System.Linq.Expressions;
 
 namespace MKTListNet.Infra.Repository

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MKTListNet.Domain.Interface.Repository;
+using MKTListNet.Domain.Interfaces.Repository;
 using System.Linq.Expressions;
 
 namespace MKTListNet.Infra.Repository
@@ -21,12 +21,7 @@ namespace MKTListNet.Infra.Repository
 
         //----------------------------------------------------------//
 
-        public virtual async Task<TEntity?> GetByIdAsync(Guid id)
-        {
-            return await _DbSet.FindAsync(id);
-        }
-
-        public async Task<TEntity?> GetByIdAsync(int id)
+        public virtual async Task<TEntity?> GetByIdAsync(dynamic id)
         {
             return await _DbSet.FindAsync(id);
         }
@@ -85,16 +80,7 @@ namespace MKTListNet.Infra.Repository
             return obj;
         }
 
-        public int Remove(Guid id)
-        {
-            var obj = GetByIdAsync(id)?.Result;
-            if (obj != null)
-                _DbSet.Remove(obj);
-
-            return SaveChanges();
-        }
-
-        public int Remove(int id)
+        public int Remove(dynamic id)
         {
             var obj = GetByIdAsync(id)?.Result;
             if (obj != null)
