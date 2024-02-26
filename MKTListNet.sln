@@ -17,17 +17,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "9- CrossCutting", "9- Cross
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "99- Test", "99- Test", "{D818EA2A-CC5A-4D13-912C-73D4A3A3CAD4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MKTListNet", "MKTListNet\MKTListNet.csproj", "{698A9CB0-830B-4F8F-8A25-B73E1EB25700}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MKTListNet", "src\MKTListNet\MKTListNet.csproj", "{698A9CB0-830B-4F8F-8A25-B73E1EB25700}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MKTListNet.Infra", "MKTListNet.Data\MKTListNet.Infra.csproj", "{374B6E6D-515F-4083-BE18-3D6A7FC142D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MKTListNet.Infra", "src\MKTListNet.Data\MKTListNet.Infra.csproj", "{374B6E6D-515F-4083-BE18-3D6A7FC142D9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MKTListNet.CrossCutting.Shared", "MKTListNet.CrossCutting.Shared\MKTListNet.CrossCutting.Shared.csproj", "{82D426C8-D4DD-4E3F-82F9-8C4193DB0E6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MKTListNet.CrossCutting.Shared", "src\MKTListNet.CrossCutting.Shared\MKTListNet.CrossCutting.Shared.csproj", "{82D426C8-D4DD-4E3F-82F9-8C4193DB0E6A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MKTListNet.Domain", "MKTListNet.Domain\MKTListNet.Domain.csproj", "{547D1116-0F8C-411B-88DB-0120E7E3308D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MKTListNet.Domain", "src\MKTListNet.Domain\MKTListNet.Domain.csproj", "{547D1116-0F8C-411B-88DB-0120E7E3308D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MKTListNet.Application", "MKTListNet.Application\MKTListNet.Application.csproj", "{0AFEE0A1-24D3-43C6-9374-3823F0DBB112}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MKTListNet.Application", "src\MKTListNet.Application\MKTListNet.Application.csproj", "{0AFEE0A1-24D3-43C6-9374-3823F0DBB112}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MKTListNet.CrossCutting.IoC", "MKTListNet.CrossCutting.IoC\MKTListNet.CrossCutting.IoC.csproj", "{A038B789-E675-4E44-A907-36291E81F797}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MKTListNet.CrossCutting.IoC", "src\MKTListNet.CrossCutting.IoC\MKTListNet.CrossCutting.IoC.csproj", "{A038B789-E675-4E44-A907-36291E81F797}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

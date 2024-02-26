@@ -2,8 +2,8 @@
 using MKTListNet.Application.AppViewModel;
 using MKTListNet.Application.Interface;
 using MKTListNet.Domain.Entities;
-using MKTListNet.Domain.Interface.Repository;
-using MKTListNet.Domain.Interface.Services;
+using MKTListNet.Domain.Interfaces.Repository;
+using MKTListNet.Domain.Interfaces.Services;
 using MKTListNet.Infra.Repository;
 
 namespace MKTListNet.Application.Services

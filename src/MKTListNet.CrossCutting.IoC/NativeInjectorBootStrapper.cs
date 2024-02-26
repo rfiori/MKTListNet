@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MKTListNet.Application.Interface;
 using MKTListNet.Application.Services;
-using MKTListNet.Domain.Interface.Repository;
-using MKTListNet.Domain.Interface.Services;
+using MKTListNet.Domain.Interfaces.Repository;
+using MKTListNet.Domain.Interfaces.Services;
 using MKTListNet.Domain.Services;
 using MKTListNet.Infra;
 using MKTListNet.Infra.Repository;

@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace MKTListNet.Domain.Interface.Repository
+namespace MKTListNet.Domain.Interfaces.Repository
 {
     public interface IRepository<TEntity> : IDisposable where TEntity : class
     {

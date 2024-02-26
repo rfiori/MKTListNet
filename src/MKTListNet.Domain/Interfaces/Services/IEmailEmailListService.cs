@@ -1,6 +1,6 @@
 ﻿using MKTListNet.Domain.Entities;
 
-namespace MKTListNet.Domain.Interface.Services
+namespace MKTListNet.Domain.Interfaces.Services
 {
     public interface IEmailEmailListService : IDisposable
     {
