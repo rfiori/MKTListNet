@@ -4,9 +4,7 @@ namespace MKTListNet.Domain.Interfaces.Repository
 {
     public interface IRepository<TEntity> : IDisposable where TEntity : class
     {
-        Task<TEntity?> GetByIdAsync(Guid id);
-
-        Task<TEntity?> GetByIdAsync(int id);
+        Task<TEntity?> GetByIdAsync(dynamic id);
 
         int Add(TEntity obj);
 
@@ -23,9 +21,7 @@ namespace MKTListNet.Domain.Interfaces.Repository
 
         TEntity? Update(TEntity obj);
 
-        int Remove(Guid id);
-
-        int Remove(int id);
+        int Remove(dynamic id);
 
         int SaveChanges();
     }
