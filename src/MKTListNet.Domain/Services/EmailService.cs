@@ -1,4 +1,5 @@
-﻿using MKTListNet.Domain.Entities;
+﻿using MKTListNet.CrossCutting.Shared.Interfaces;
+using MKTListNet.Domain.Entities;
 using MKTListNet.Domain.Interfaces.Repository;
 using MKTListNet.Domain.Interfaces.Services;
 using System.Linq.Expressions;

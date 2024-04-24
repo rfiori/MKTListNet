@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MKTListNet.Domain.Interfaces.Repository;
+using MKTListNet.CrossCutting.Shared.Interfaces;
 using System.Linq.Expressions;
 
-namespace MKTListNet.Infra.Repository
+namespace MKTListNet.CrossCutting.Shared.Services
 {
-    public class PagingRepository<TEntity> : IPagingRepository<TEntity> where TEntity : class
+	public class PagingRepository<TEntity> : IPagingRepository<TEntity> where TEntity : class
     {
         public IPagingResult<TEntity>? PagingData(IEnumerable<TEntity>? itemsPaging, int pageSize = 30, int page = 1)
         {

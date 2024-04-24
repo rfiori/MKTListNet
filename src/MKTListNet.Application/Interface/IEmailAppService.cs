@@ -1,4 +1,5 @@
 ﻿using MKTListNet.Application.AppViewModel;
+using MKTListNet.CrossCutting.Shared.Interfaces;
 using MKTListNet.Domain.Interfaces.Repository;
 
 namespace MKTListNet.Application.Interface

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MKTListNet.Application.AppViewModel;
+using MKTListNet.CrossCutting.Shared.Services;
 using MKTListNet.Domain.Entities;
 using MKTListNet.Infra.Repository;
 

@@ -1,6 +1,7 @@
-﻿using System.Linq.Expressions;
+﻿using MKTListNet.CrossCutting.Shared.Services;
+using System.Linq.Expressions;
 
-namespace MKTListNet.Domain.Interfaces.Repository
+namespace MKTListNet.CrossCutting.Shared.Interfaces
 {
     public interface IPagingRepository<TEntity> where TEntity : class
     {

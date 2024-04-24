@@ -1,4 +1,5 @@
-﻿using MKTListNet.Domain.Entities;
+﻿using MKTListNet.CrossCutting.Shared.Interfaces;
+using MKTListNet.Domain.Entities;
 
 namespace MKTListNet.Domain.Interfaces.Repository
 {

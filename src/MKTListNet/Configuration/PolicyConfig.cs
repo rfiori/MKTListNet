@@ -1,4 +1,5 @@
 ﻿using MKTListNet.CrossCutting.Shared;
+using MKTListNet.CrossCutting.Shared.Const;
 
 namespace MKTListNet.Configuration
 {

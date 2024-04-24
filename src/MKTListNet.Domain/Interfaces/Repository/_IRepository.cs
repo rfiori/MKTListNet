@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using MKTListNet.CrossCutting.Shared.Interfaces;
+using System.Linq.Expressions;
 
 namespace MKTListNet.Domain.Interfaces.Repository
 {

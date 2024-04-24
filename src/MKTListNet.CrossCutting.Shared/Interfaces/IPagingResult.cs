@@ -1,6 +1,7 @@
-﻿namespace MKTListNet.Domain.Interfaces.Repository
+﻿namespace MKTListNet.CrossCutting.Shared.Interfaces
+
 {
-    public interface IPagingResult<TEntity> where TEntity : class
+	public interface IPagingResult<TEntity> where TEntity : class
     {
         IEnumerable<TEntity>? Items { get; }
 

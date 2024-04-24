@@ -1,4 +1,4 @@
-﻿namespace MKTListNet.CrossCutting.Shared
+﻿namespace MKTListNet.CrossCutting.Shared.Const
 {
     public static class ClaimPermission
     {

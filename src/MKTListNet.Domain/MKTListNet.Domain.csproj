@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MKTListNet.CrossCutting.Shared\MKTListNet.CrossCutting.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MKTListNet.CrossCutting.Shared.Interfaces;
 using MKTListNet.Domain.Interfaces.Repository;
 using System.Linq.Expressions;
 

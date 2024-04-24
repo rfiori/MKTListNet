@@ -1,6 +1,6 @@
-﻿using MKTListNet.Domain.Interfaces.Repository;
+﻿using MKTListNet.CrossCutting.Shared.Interfaces;
 
-namespace MKTListNet.Infra.Repository
+namespace MKTListNet.CrossCutting.Shared.Services
 {
     public class PagingResult<TEntity> : IPagingResult<TEntity> where TEntity : class
     {
